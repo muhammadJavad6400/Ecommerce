@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('product_tags', function (Blueprint $table) {
+            // This Is a Pivot Table Between Table Tags and Products
 
             // Foreign Key To Connect To Tags Table
             $table->foreignId('tag_id');
