@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('product_tags', function (Blueprint $table) {
+        Schema::create('product_tag', function (Blueprint $table) {
             // This Is a Pivot Table Between Table Tags and Products
 
             // Foreign Key To Connect To Tags Table
@@ -23,7 +23,6 @@ return new class extends Migration
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
 
             $table->primary(['tag_id', 'product_id']);
-
             $table->timestamps();
         });
     }
@@ -33,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('product_tags');
+        Schema::dropIfExists('product_tag');
     }
 };
