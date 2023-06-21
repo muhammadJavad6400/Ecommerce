@@ -16,7 +16,7 @@ return new class extends Migration
 
             // Foreign Key To Connect To Categories Table
             $table->foreignId('category_id');
-            $table->foreign('category__id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
 
             // Foreign Key To Connect To Brands Table
             $table->foreignId('brand_id');
@@ -30,7 +30,7 @@ return new class extends Migration
             $table->boolean('is_active')->default(1);  // Product Is Active
             $table->unsignedInteger('delivery_amount')->default(0);
             $table->unsignedInteger('delivery_amount_per_product')->nullable();
-            
+
             $table->softDeletes();
             $table->timestamps();
         });

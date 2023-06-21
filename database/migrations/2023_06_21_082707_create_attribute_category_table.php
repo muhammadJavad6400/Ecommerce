@@ -13,20 +13,20 @@ return new class extends Migration
     {
         Schema::create('attribute_category', function (Blueprint $table) {
             // This Is a Pivot Table Between Table Attributes and Categories
-            
+
             // Foreign Key To Connect To Categories Table
             $table->foreignId('attribute_id');
             $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade')->onUpdate('cascade');
 
             // Foreign Key To Connect To Categories Table
             $table->foreignId('category_id');
-            $table->foreign('category__id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
 
 
             $table->boolean('is_filter')->default(0); // This Attribute Is not a Filter By Default For This Category
             $table->boolean('is_variation')->default(0); // This Attribute Is not a Variation By Default For This Category
 
-            $table->primary(['attribute_id' , 'category__id']);
+            $table->primary(['attribute_id' , 'category_id']);
 
             $table->timestamps();
         });
