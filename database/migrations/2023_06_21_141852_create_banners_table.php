@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('butten_link')->nullable();
             $table->string('butten_icon')->nullable();
 
-
+            $table->softDeletes();
             $table->timestamps();
         });
     }

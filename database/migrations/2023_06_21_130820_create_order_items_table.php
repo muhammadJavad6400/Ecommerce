@@ -29,7 +29,8 @@ return new class extends Migration
             $table->unsignedBigInteger('price');
             $table->unsignedBigInteger('quantity');
             $table->unsignedBigInteger('subtotal'); // price * quantity
-
+            
+            $table->softDeletes();
             $table->timestamps();
         });
     }

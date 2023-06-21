@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedInteger('max_percentage_amount')->nullable();
             $table->text('description')->nullable();
             $table->timestamp('expired_at')->nullable();
-
+            $table->softDeletes();
             $table->timestamps();
         });
     }

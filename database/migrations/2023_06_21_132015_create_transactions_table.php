@@ -28,6 +28,8 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->enum('getway_name', ['zarinpal', 'pay']);
             $table->tinyInteger('status')->default(0); // Transaction failed
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }

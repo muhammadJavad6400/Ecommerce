@@ -24,6 +24,8 @@ return new class extends Migration
 
             $table->string('value');
             $table->boolean('is_active')->default(1);
+            
+            $table->softDeletes();
             $table->timestamps();
         });
     }

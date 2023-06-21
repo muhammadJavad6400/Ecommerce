@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('instagram')->nullable(); // Instagram URL
             $table->string('Telegram')->nullable(); //  Telegram URL
 
+            $table->softDeletes();
             $table->timestamps();
         });
     }

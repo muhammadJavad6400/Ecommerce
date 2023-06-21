@@ -24,7 +24,8 @@ return new class extends Migration
 
             $table->boolean('approved')->default(0);  // Comment dont Show
             $table->text('text');
-
+            
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -35,7 +35,7 @@ return new class extends Migration
             $table->tinyInteger('payment_status')->default(0);
             $table->text('description')->nullable();
 
-
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -23,6 +23,8 @@ return new class extends Migration
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
 
             $table->tinyInteger('rate')->default(0);
+            
+            $table->softDeletes();
             $table->timestamps();
         });
     }

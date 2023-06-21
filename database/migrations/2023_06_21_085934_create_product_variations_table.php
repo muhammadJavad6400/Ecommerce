@@ -31,7 +31,8 @@ return new class extends Migration
             $table->unsignedBigInteger('sale_price')->nullable(); // Price After Discount
             $table->timestamp('date_on_sale_from')->nullable();  //  Discount Start Date
             $table->timestamp('date_on_sale_to')->nullable();   //   End of Discount Date
-
+            
+            $table->softDeletes();
             $table->timestamps();
         });
     }
