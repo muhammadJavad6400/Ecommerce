@@ -1,6 +1,6 @@
 {
     "private": true,
-    "type": "commonjs",
+    "type": "module",
     "scripts": {
         "dev": "npm run development",
         "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --config=node_modules/laravel-mix/setup/webpack.config.js",
@@ -17,10 +17,7 @@
         "lodash": "^4.17.19",
         "resolve-url-loader": "^3.1.0",
         "sass": "^1.29.0",
-        "sass-loader": "^8.0.2",
-        "vue-loader": "^17.2.2",
-        "vue-template-compiler": "^2.7.14",
-        "vueify": "^9.4.1"
+        "sass-loader": "^8.0.2"
     },
     "dependencies": {
         "bootstrap": "^4.5.0",
