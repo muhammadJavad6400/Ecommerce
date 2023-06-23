@@ -13,7 +13,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="{{ route('dashboard') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span> داشبورد </span></a>
     </li>
@@ -23,21 +23,20 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        لورم ایپسوم
+        فروشگاه
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-cog"></i>
-            <span> کامپونت ها </span>
+            <i class="fas fa-fw fa-store"></i>
+            <span>  برند ها </span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header"> کامپونت سفارشی : </h6>
-                <a class="collapse-item" href="#">Buttons</a>
-                <a class="collapse-item" href="#">Cards</a>
+                <a class="collapse-item" href="{{ route('admin.brands.index') }}">لیست برند</a>
+                <a class="collapse-item" href="{{ route('admin.brands.create') }}">ایجاد برند</a>
             </div>
         </div>
     </li>
