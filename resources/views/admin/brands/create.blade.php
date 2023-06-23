@@ -33,8 +33,8 @@
                         </div>
                         <div class="form-group col-md-3">
                             <div class="btn btn-primary btn-rounded mt-4 d-flex flex-grow-1">
-                                <label class="form-label text-white my-1" for="image">انتخاب تصویر</label>
-                                <input type="file" class="form-control d-none" id="image" name="image"/>
+                                <label class="form-label text-white my-1" for="icon">انتخاب تصویر</label>
+                                <input type="file" class="form-control d-none" id="icon" name="icon"/>
                             </div>
                         </div>
                     </div>

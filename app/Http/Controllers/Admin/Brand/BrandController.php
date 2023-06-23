@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin\Brand;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+
 
 class BrandController extends Controller
 {
@@ -31,9 +33,25 @@ class BrandController extends Controller
     {
         $request->validate([
             'name' => 'required|string|min:2|max:50',
-            'image' => 'nullable|image',
+            'is_active' => 'required',
+            'icon' => 'nullable|mimes:jpg,jpeg,png,svg',
             'description' => 'nullable|string'
         ]);
+
+
+        $fileNameIcon = generateFileName($request->icon->getClientOriginalName());
+        $iconName = $request->icon->move(public_path(env('BRAND_IMAGES_UPLOAD_PATH')) , $fileNameIcon);
+
+        $brand =  Brand::create([
+            'name' => $request->name,
+            'is_active' => $request->is_active,
+            'icon' => $iconName,
+            'description' => $request->description
+        ]);
+
+        return redirect()->route('admin.brands.index');
+
+
     }
 
     /**
