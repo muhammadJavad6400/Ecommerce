@@ -1,5 +1,10 @@
 @extends('admin.layouts.admin')
 
+
+@section('title')
+    Create Brands
+@endsection
+
 @section('content')
     <!-- Content Row -->
     <div class="row">
@@ -9,7 +14,7 @@
                 <h5 class="font-weight-bold">ایجاد برند</h5>
             </div>
             <hr>
-
+            @include('admin.sections.errors')
             <form action="{{ route('admin.brands.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">

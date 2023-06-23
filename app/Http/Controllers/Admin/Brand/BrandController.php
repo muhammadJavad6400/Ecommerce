@@ -29,7 +29,11 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|min:2|max:50',
+            'image' => 'nullable|image',
+            'description' => 'nullable|string'
+        ]);
     }
 
     /**
