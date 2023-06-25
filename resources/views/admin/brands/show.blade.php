@@ -42,6 +42,14 @@
             <div class="d-flex justify-content-center ">
 
                 <a href="{{ route('admin.brands.index') }}" class="btn btn-dark mt-5">بازگشت</a>
+
+                <form class="mt-5 mr-3" action="{{ route('admin.brands.destroy' , ['brand' => $brand->id]) }}" method="POST">
+                    @csrf
+                    @method('delete')
+
+                    <button class="btn btn-outline-danger">حذف</button>
+
+                </form>
             </div>
         </div>
 
