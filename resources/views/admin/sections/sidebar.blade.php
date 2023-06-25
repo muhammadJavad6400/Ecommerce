@@ -43,18 +43,14 @@
 
     <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts"
             aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-wrench"></i>
-            <span> ابزار ها </span>
+            <i class="fas fa-fw fa-cart-plus"></i>
+            <span>محصولات</span>
         </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+        <div id="collapseProducts" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header"> لورم ایپسوم </h6>
-                <a class="collapse-item" href="#">Colors</a>
-                <a class="collapse-item" href="#">Borders</a>
-                <a class="collapse-item" href="#">Animations</a>
-                <a class="collapse-item" href="#">Other</a>
+                <a class="collapse-item" href="{{ route('admin.attributes.index') }}">ویژگی ها</a>
             </div>
         </div>
     </li>

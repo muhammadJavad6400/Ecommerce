@@ -13,7 +13,8 @@ class AttributeController extends Controller
      */
     public function index()
     {
-        //
+        $attributes = Attribute::latest()->paginate(10);
+        return view('admin.attribute.index' , compact('attributes'));
     }
 
     /**
@@ -44,17 +45,17 @@ class AttributeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Attribute $attribute)
     {
-        //
+        return view('admin.attribute.show' , compact('attribute'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Attribute $attribute)
     {
-        //
+        return view('admin.attribute.edit' , compact('attribute'));
     }
 
     /**
