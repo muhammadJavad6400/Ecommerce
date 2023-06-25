@@ -77,6 +77,9 @@ class BrandController extends Controller
             'description' => 'nullable|string'
         ]);
 
+        // برای اینکه متناسب با اسم جدید برند تغییر کند
+        $brand->slug = null;
+
         $brand->update([
             'name' => $request->name,
             'is_active' => $request->is_active,
