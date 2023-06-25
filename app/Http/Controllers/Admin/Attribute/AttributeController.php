@@ -61,16 +61,28 @@ class AttributeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Attribute $attribute)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|min:3|max:30'
+        ]);
+
+        $attribute->update([
+            'name' => $request->name
+        ]);
+
+        alert()->success('ویژگی مورد نظر ویرایش شد' , 'با تشکر');
+        return redirect()->route('admin.attributes.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Attribute $attribute)
     {
-        //
+        $attribute->delete();
+
+        alert()->error('ویژگی مورد نظر حذف شد' , ' !توجه توجه');
+        return redirect()->route('admin.attributes.index');
     }
 }
