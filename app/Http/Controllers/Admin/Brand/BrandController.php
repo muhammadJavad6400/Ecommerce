@@ -38,7 +38,7 @@ class BrandController extends Controller
             'description' => 'nullable|string'
         ]);
 
-        $brand =  Brand::create([
+        Brand::create([
             'name' => $request->name,
             'is_active' => $request->is_active,
             'description' => $request->description
@@ -60,17 +60,31 @@ class BrandController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Brand $brand)
     {
-        //
+        return view('admin.brands.edit' , compact('brand'));
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Brand $brand)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|min:2|max:50',
+            'is_active' => 'required',
+            'description' => 'nullable|string'
+        ]);
+
+        $brand->update([
+            'name' => $request->name,
+            'is_active' => $request->is_active,
+            'description' => $request->description
+        ]);
+
+        alert()->success('برند مورد نظر ویرایش شد' , 'با تشکر');
+        return redirect()->route('admin.brands.index');
     }
 
     /**

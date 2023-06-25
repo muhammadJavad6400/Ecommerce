@@ -39,6 +39,7 @@
                                 </td>
                                 <td>
                                     <a class="btn btn-sm btn-outline-success" href="{{ route('admin.brands.show' , ['brand' => $brand->id]) }}">نمایش</a>
+                                    <a class="btn btn-sm btn-outline-info mr-2" href="{{ route('admin.brands.edit' , ['brand' => $brand->id]) }}">ویرایش</a>
                                 </td>
                             </tr>
                         @endforeach
