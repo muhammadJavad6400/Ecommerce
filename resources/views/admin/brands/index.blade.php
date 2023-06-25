@@ -30,7 +30,7 @@
                     <tbody>
                         @foreach ($brands as $key => $brand)
                             <tr>
-                                <th>{{ $key+1 }}</th>
+                                <th>{{ $brands->firstItem() + $key }}</th>
                                 <td>{{ $brand->name }}</td>
                                 <td>
                                     <span class="{{ $brand->getRawOriginal('is_active') ? 'text-success' : 'text-danger' }}">
