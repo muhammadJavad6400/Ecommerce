@@ -21,7 +21,7 @@
                     <div class="d-flex justify-content-center">
                         <div class="form-group col-md-3">
                             <label for="name">نام</label>
-                            <input class="form-control" id="name" name="name" type="text">
+                            <input class="form-control" id="name" name="name" type="text" value="{{ old('name') }}">
                         </div>
 
                         <div class="form-group col-md-3">
@@ -35,7 +35,7 @@
 
                     <div class="form-group col-md-12">
                         <label for="description">توضیحات</label>
-                        <textarea class="form-control" name="description" id="description"></textarea>
+                        <textarea class="form-control" name="description" id="description">{{ old('description') }}</textarea>
                     </div>
                 </div>
                 <div class="d-flex justify-content-center">
