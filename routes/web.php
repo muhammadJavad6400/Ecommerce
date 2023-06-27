@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\Attribute\AttributeController as AdminAttributeController;
 use App\Http\Controllers\Admin\Brand\BrandController as AdminBrandController;
+use App\Http\Controllers\Admin\Category\CategoryController as AdminCategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,5 +24,6 @@ Route::get('/admin-panel/dashboard', function () {
 Route::prefix('admin-panel/management')->name('admin.')->group(function() {
     Route::resource('/brands' , AdminBrandController::class);
     Route::resource('/attributes' , AdminAttributeController::class);
+    Route::resource('/categories' , AdminCategoryController::class);
 
 });
