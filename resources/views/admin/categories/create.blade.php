@@ -47,7 +47,7 @@
                     </div>
 
                     <div class="form-group col-md-3">
-                        <label for="is_active">ویژگی</label>
+                        <label for="attribute_ids">ویژگی</label>
                         <select id="attributeSelect" name="attribute_ids[]" class="form-control" multiple
                             data-live-search="true">
 
@@ -55,8 +55,28 @@
                                 <option value="{{ $attribute->id }}">{{ $attribute->name }}</option>
                             @endforeach
                         </select>
-
                     </div>
+
+                    <div class="form-group col-md-3">
+                        <label for="attribute_is_filter_ids">انتخاب ویژگی های قابل فیلتر</label>
+                        <select id="attributeIsFilterSelect" name="attribute_is_filter_ids[]" class="form-control" multiple
+                            data-live-search="true">
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label for="variation_id">انتخاب ویژگی متغیر</label>
+                        <select id="variationSelect" name="variation_id" class="form-control"
+                            data-live-search="true">
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label for="icon">آیکون</label>
+                        <input class="form-control" id="icon" name="icon" type="text">
+                    </div>
+
+
                     <div class="form-group col-md-12">
                         <label for="description">توضیحات</label>
                         <textarea class="form-control" name="description" id="description"></textarea>
@@ -64,7 +84,7 @@
                 </div>
                 <div class="d-flex justify-content-center">
                     <button class="btn btn-outline-primary mt-5" type="submit">ثبت</button>
-                    <a href="{{ route('admin.brands.index') }}" class="btn btn-dark mt-5 mr-3">بازگشت</a>
+                    <a href="{{ route('admin.attributes.index') }}" class="btn btn-dark mt-5 mr-3">بازگشت</a>
                 </div>
 
             </form>
@@ -81,6 +101,53 @@
         $('#attributeSelect').selectpicker({
             'title': 'انتخاب ویژگی'
         });
-    </script>
 
+        $('#attributeIsFilterSelect').selectpicker({
+            'title': 'انتخاب ویژگی'
+        });
+
+        $('#variationSelect').selectpicker({
+            'title': 'انتخاب ویژگی'
+        });
+
+        $('#attributeSelect').on('changed.bs.select', function() {
+
+            let attributesSelected = $(this).val();
+            let attributes = @json($attributes);
+
+            let attributeForFilter = [];
+
+            attributes.map((attribute) => {
+                $.each(attributesSelected , function(i,element){
+                    if( attribute.id == element ){
+                        attributeForFilter.push(attribute);
+                    }
+                });
+            });
+
+
+            $("#attributeIsFilterSelect").find("option").remove();
+            $("#variationSelect").find("option").remove();
+
+            attributeForFilter.map((element) => {
+                let attributeFilterOption = $("<option/>" , {
+                    value: element.id,
+                    text: element.name
+                });
+
+                let variationOption = $("<option/>" , {
+                    value: element.id,
+                    text: element.name
+                });
+
+                $("#attributeIsFilterSelect").append(attributeFilterOption);
+                $("#attributeIsFilterSelect").selectpicker("refresh");
+
+                $("#variationSelect").append(variationOption);
+                $("#variationSelect").selectpicker("refresh");
+
+
+            })
+        });
+    </script>
 @endsection
