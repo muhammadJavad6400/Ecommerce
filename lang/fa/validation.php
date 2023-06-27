@@ -146,6 +146,8 @@ return [
         'age'                      => 'سن',
         'amount'                   => 'مبلغ',
         'area'                     => 'منطقه',
+        'attribute ids'            => 'ویژگی',
+        'attribute is filterids'   => 'قابل فیلتر',
         'available'                => 'موجود',
         'birthday'                 => 'تاریخ تولد',
         'body'                     => 'بدن',
@@ -212,6 +214,11 @@ return [
         'title'                    => 'عنوان',
         'updated_at'               => 'بروزشده در',
         'username'                 => 'نام کاربری',
+        'variation id'             => 'ویژگی متغیر',
         'year'                     => 'سال',
+        'slug'                     => 'نام ثبتی',
+        'attribute_ids'            => 'ویژگی',
+        'attribute_is_filter_ids'  => 'ویژگی فیلتر شده',
+        'variation_id'             => 'ویژگی متغییر'
     ],
 ];
