@@ -20,7 +20,8 @@
                     <div class="d-flex justify-content-center">
                         <div class="form-group col-md-3">
                             <label for="name">نام</label>
-                            <input class="form-control" id="name" name="name" type="text" value="{{ old('name') }}">
+                            <input class="form-control" id="name" name="name" type="text"
+                                value="{{ old('name') }}">
                         </div>
                     </div>
                 </div>
