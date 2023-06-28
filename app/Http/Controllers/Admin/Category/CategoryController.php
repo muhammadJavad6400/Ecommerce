@@ -17,7 +17,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::latest()->paginate(10);
-        return view('admin.categories.index' , compact('categories'));
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**
@@ -78,7 +78,7 @@ class CategoryController extends Controller
         }
 
 
-        alert()->success('دسته بندی مورد نظر ایجاد شد' , 'با تشکر');
+        alert()->success('دسته بندی مورد نظر ایجاد شد', 'با تشکر');
         return redirect()->route('admin.categories.index');
     }
 
@@ -88,7 +88,7 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
 
-        return view('admin.categories.show' , compact('category'));
+        return view('admin.categories.show', compact('category'));
     }
 
     /**
@@ -98,15 +98,61 @@ class CategoryController extends Controller
     {
         $parentCategories = Category::where('parent_id', 0)->get();
         $attributes = ModelsAttribute::all();
-        return view('admin.categories.edit' , compact('category', 'parentCategories', 'attributes'));
+        return view('admin.categories.edit', compact('category', 'parentCategories', 'attributes'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $request->validate([
+            'parent_id' => 'required',
+            'name' => 'required|string',
+            'slug' => 'required|unique:categories,slug,'.$category->id,
+            'attribute_ids' => 'required',
+            'attribute_is_filter_ids' => 'required',
+            'variation_id' => 'required',
+            'is_active' => 'required',
+            'icon' => 'nullable',
+            'description' => 'nullable|string'
+
+        ]);
+
+        try {
+
+            DB::beginTransaction();
+
+            $category->update([
+                'parent_id' => $request->parent_id,
+                'name' => $request->name,
+                'slug' => $request->slug,
+                'description' => $request->description,
+                'icon' => $request->icon
+            ]);
+
+            $category->attributes()->detach();
+
+            //پر کردن جدول میانی بین دسته بندی و ویزگی بر اساس آیدی ویژگی
+            foreach ($request->attribute_ids as $attributeId) {
+                $attribute = ModelsAttribute::findOrFail($attributeId);
+                $attribute->categories()->attach($category->id, [
+                    'is_filter' => in_array($attributeId, $request->attribute_is_filter_ids) ? 1 : 0,
+                    'is_variation' => $request->variation_id == $attributeId ? 1 : 0,
+                ]);
+            }
+
+            DB::commit();
+        } catch (\Exception $ex) {
+            DB::rollBack();
+
+            alert()->error('مشکل در ایجاد دسته بندی', $ex->getMessage());
+            redirect()->route('admin.categories.create');
+        }
+
+
+        alert()->success('دسته بندی مورد نظر ایجاد شد', 'با تشکر');
+        return redirect()->route('admin.categories.index');
     }
 
     /**
