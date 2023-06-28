@@ -87,15 +87,18 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
+
         return view('admin.categories.show' , compact('category'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Category $category)
     {
-        //
+        $parentCategories = Category::where('parent_id', 0)->get();
+        $attributes = ModelsAttribute::all();
+        return view('admin.categories.edit' , compact('category', 'parentCategories', 'attributes'));
     }
 
     /**

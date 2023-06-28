@@ -30,7 +30,7 @@
                     <label>والد</label>
                     <div class="form-control div-disabled">
                         @if ($category->parent_id == 0)
-                            {{ $category->name }}
+                            بدون والد
                         @else
                             {{ $category->parent->name }}
                         @endif
@@ -65,34 +65,31 @@
                         <div class="col-md-3">
                             <label>ویژگی ها</label>
                             <div class="form-control div-disabled">
-                               @foreach($category->attributes as $attribute)
+                                @foreach ($category->attributes as $attribute)
                                     {{ $attribute->name }}{{ $loop->last ? '' : '،' }}
-                               @endforeach
+                                @endforeach
                             </div>
                         </div>
 
                         <div class="col-md-3">
                             <label>ویژگی های قابل فیلتر</label>
                             <div class="form-control div-disabled">
-                               @foreach($category->attributes()->wherePivot('is_filter' , 1)->get() as $attribute)
+                                @foreach ($category->attributes()->wherePivot('is_filter', 1)->get() as $attribute)
                                     {{ $attribute->name }}{{ $loop->last ? '' : '،' }}
-                               @endforeach
+                                @endforeach
                             </div>
                         </div>
 
                         <div class="col-md-3">
                             <label>ویژگی های متغیر</label>
                             <div class="form-control div-disabled">
-                               @foreach($category->attributes()->wherePivot('is_variation' , 1)->get() as $attribute)
+                                @foreach ($category->attributes()->wherePivot('is_variation', 1)->get() as $attribute)
                                     {{ $attribute->name }}{{ $loop->last ? '' : '،' }}
-                               @endforeach
+                                @endforeach
                             </div>
                         </div>
 
                     </div>
-
-
-
 
                 </div>
 

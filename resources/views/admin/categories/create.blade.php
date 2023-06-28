@@ -2,7 +2,7 @@
 
 
 @section('title')
-    Create Categories
+    Create Category
 @endsection
 
 @section('content')
@@ -84,7 +84,7 @@
                 </div>
                 <div class="d-flex justify-content-center">
                     <button class="btn btn-outline-primary mt-5" type="submit">ثبت</button>
-                    <a href="{{ route('admin.attributes.index') }}" class="btn btn-dark mt-5 mr-3">بازگشت</a>
+                    <a href="{{ route('admin.categories.index') }}" class="btn btn-dark mt-5 mr-3">بازگشت</a>
                 </div>
 
             </form>
@@ -103,11 +103,11 @@
         });
 
         $('#attributeIsFilterSelect').selectpicker({
-            'title': 'انتخاب ویژگی'
+            'title': 'انتخاب فیلتر'
         });
 
         $('#variationSelect').selectpicker({
-            'title': 'انتخاب ویژگی'
+            'title': 'انتخاب متغیر'
         });
 
         $('#attributeSelect').on('changed.bs.select', function() {
