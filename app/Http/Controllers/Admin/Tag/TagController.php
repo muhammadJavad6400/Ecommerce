@@ -53,17 +53,26 @@ class TagController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Tag $tag)
     {
-        //
+        return view('admin.tags.edit', compact('tag'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Tag $tag)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        Tag::create([
+            'name' => $request->name,
+        ]);
+
+        alert()->success('تگ مورد نظر ویرایش شد', 'باتشکر');
+        return redirect()->route('admin.tags.index');
     }
 
     /**
