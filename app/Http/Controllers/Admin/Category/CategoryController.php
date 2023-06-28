@@ -146,20 +146,23 @@ class CategoryController extends Controller
         } catch (\Exception $ex) {
             DB::rollBack();
 
-            alert()->error('مشکل در ایجاد دسته بندی', $ex->getMessage());
+            alert()->error('مشکل در ویرایش دسته بندی', $ex->getMessage());
             redirect()->route('admin.categories.create');
         }
 
 
-        alert()->success('دسته بندی مورد نظر ایجاد شد', 'با تشکر');
+        alert()->success('دسته بندی مورد نظر ویرایش شد', 'با تشکر');
         return redirect()->route('admin.categories.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        alert()->error('دسته بندی مورد نظر حذف شد' , ' !توجه توجه');
+        return redirect()->route('admin.categories.index');
     }
 }
