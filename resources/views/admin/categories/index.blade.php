@@ -2,20 +2,17 @@
 
 
 @section('title')
-
     Index Categories
-
 @endsection
 
 
 @section('content')
-
-      <!-- Content Row -->
-      <div class="row">
+    <!-- Content Row -->
+    <div class="row">
 
         <div class="col-xl-12 col-md-12 mb-4 p-md-5 bg-white">
             <div class="d-flex justify-content-between mb-4">
-                <h5 class="font-weight-bold">لیست دسته بندی ها : {{ $categories->total() }}</h5>
+                <h5 class="font-weight-bold">لیست دسته بندی ها : ( {{ $categories->total() }})</h5>
                 <a class="btn btn-sm btn-outline-primary" href="{{ route('admin.categories.create') }}">
                     <i class="fa fa-plus"></i>
                     ایجاد دسته بندی
@@ -38,13 +35,13 @@
                         @foreach ($categories as $key => $category)
                             <tr>
                                 <th>{{ $categories->firstItem() + $key }}</th>
-                                <td>{{ $category->name}}</td>
+                                <td>{{ $category->name }}</td>
                                 <td>{{ $category->slug }}</td>
                                 <td>
                                     @if ($category->parent_id == 0)
                                         {{ $category->name }}
                                     @else
-                                    {{ $category->parent->name }}
+                                        {{ $category->parent->name }}
                                     @endif
                                 </td>
                                 <td>
@@ -65,5 +62,4 @@
             </div>
         </div>
     </div>
-
 @endsection
