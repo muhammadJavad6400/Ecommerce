@@ -67,7 +67,7 @@ class TagController extends Controller
             'name' => 'required',
         ]);
 
-        Tag::create([
+        $tag->update([
             'name' => $request->name,
         ]);
 
