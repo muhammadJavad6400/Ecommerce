@@ -109,7 +109,37 @@
                         <div id="attributeEachCategory" class="row"></div>
                         <div class="col-md-12">
                             <hr>
-                            <p>افزودن قیمت و موجودی برای متغیر  <span id="variationName" class="font-weight-bold"></span>:</p>
+                            <p>افزودن قیمت و موجودی برای متغیر <span id="variationName" class="font-weight-bold"></span>:
+                            </p>
+                        </div>
+
+                        <div id="czContainer">
+                            <div id="first">
+                                <div class="recordset">
+                                    <div class="row">
+                                        <div class="form-group col-md-3">
+                                            <label>نام</label>
+                                            <input class="form-control" name="variation_values[value][]" type="text">
+                                        </div>
+
+                                        <div class="form-group col-md-3">
+                                            <label>قیمت</label>
+                                            <input class="form-control" name="variation_values[price][]" type="text">
+                                        </div>
+
+                                        <div class="form-group col-md-3">
+                                            <label>تعداد</label>
+                                            <input class="form-control" name="variation_values[quantity][]" type="text">
+                                        </div>
+
+                                        <div class="form-group col-md-3">
+                                            <label>شناسه انبار</label>
+                                            <input class="form-control" name="variation_values[sku][]" type="text">
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -213,5 +243,7 @@
                 alert('مشکل در دریافت لیست ویژگی ها')
             });
         });
+
+        $("#czContainer").czMore();
     </script>
 @endsection
