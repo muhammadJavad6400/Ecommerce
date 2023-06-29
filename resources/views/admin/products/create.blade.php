@@ -142,8 +142,25 @@
                             </div>
                         </div>
                     </div>
+                </div>
 
+                {{-- Delivery Section --}}
+                <div class="col-md-12">
+                    <hr>
+                    <p>هزینه ارسال : </p>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <div class="form-group col-md-3">
+                        <label for="delivery_amount">هزینه ارسال</label>
+                        <input class="form-control" id="delivery_amount" name="delivery_amount" type="text"
+                            {{ old('delivery_amount') }}>
+                    </div>
 
+                    <div class="form-group col-md-3">
+                        <label for="delivery_amount_per_product">هزینه ارسال به ازای محصول اضافی</label>
+                        <input class="form-control" id="delivery_amount_per_product" name="delivery_amount_per_product"
+                            type="text" {{ old('delivery_amount_per_product') }}>
+                    </div>
 
                 </div>
 
