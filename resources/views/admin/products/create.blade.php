@@ -107,6 +107,10 @@
 
                     <div id="attributesContainer" class="col-md-12">
                         <div id="attributeEachCategory" class="row"></div>
+                        <div class="col-md-12">
+                            <hr>
+                            <p>افزودن قیمت و موجودی برای متغیر  <span id="variationName" class="font-weight-bold"></span>:</p>
+                        </div>
                     </div>
 
 
@@ -156,6 +160,8 @@
             $(this).next('.custom-file-label').html(fileName);
         });
 
+
+        $('#attributesContainer').hide();
         $('#categorySelect').on('changed.bs.select', function() {
             let categoryId = $(this).val();
 
@@ -164,7 +170,7 @@
                 if (status == 'success') {
                     //console.log(response);
 
-
+                    $('#attributesContainer').fadeIn();
                     // Empty Attribute Container
                     $('#attributeEachCategory').find('div').remove();
 
@@ -189,10 +195,17 @@
 
 
                         $('#attributeEachCategory').append(attributeFormGroup);
-
-
-
                     })
+
+
+                    $('#variationName').text(response.variation.name);
+
+
+
+
+
+
+
                 } else {
                     alert('مشکل در دریافت لیست ویژگی ها');
                 }
