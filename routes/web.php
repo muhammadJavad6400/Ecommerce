@@ -24,7 +24,7 @@ Route::get('/admin-panel/dashboard', function () {
 
 
 Route::prefix('admin-panel/management')->name('admin.')->group(function() {
-    
+
     Route::resource('brands', AdminBrandController::class);
     Route::resource('attributes', AdminAttributeController::class);
     Route::resource('categories', AdminCategoryController::class);

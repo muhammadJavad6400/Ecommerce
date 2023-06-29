@@ -14,14 +14,15 @@
             </div>
             <hr>
             @include('admin.sections.errors')
-            <form action="{{ route('admin.products.store') }}" method="POST"  enctype="multipart/form-data">
+            <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <p>عنوان محصول: </p>
                 <div class="form-row">
 
                     <div class="form-group col-md-3">
                         <label for="name">نام</label>
-                        <input class="form-control" id="name" name="name" type="text" value="{{ old('name') }}">
+                        <input class="form-control" id="name" name="name" type="text"
+                            value="{{ old('name') }}">
                     </div>
 
                     <div class="form-group col-md-3">
@@ -95,12 +96,21 @@
                                 <label for="category_id">دسته بندی</label>
                                 <select id="categorySelect" name="category_id" class="form-control" data-live-search="true">
                                     @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }} - {{ $category->parent->name }}</option>
+                                        <option value="{{ $category->id }}">{{ $category->name }} -
+                                            {{ $category->parent->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
                     </div>
+
+
+                    <div id="attributesContainer" class="col-md-12">
+                        <div id="attributeEachCategory" class="row"></div>
+                    </div>
+
+
+
                 </div>
 
                 <div class="d-flex justify-content-center">
@@ -146,13 +156,44 @@
             $(this).next('.custom-file-label').html(fileName);
         });
 
-        $('#categorySelect').on('changed.bs.select' , function() {
+        $('#categorySelect').on('changed.bs.select', function() {
             let categoryId = $(this).val();
 
-            $.get(`{{ url('/admin-panel/management/category-attributes-list/${categoryId}') }}`, function(response, status) {
-                if(status == 'success'){
-                    console.log(response);
-                }else{
+            $.get(`{{ url('/admin-panel/management/category-attributes-list/${categoryId}') }}`, function(response,
+                status) {
+                if (status == 'success') {
+                    //console.log(response);
+
+
+                    // Empty Attribute Container
+                    $('#attributeEachCategory').find('div').remove();
+
+                    // Create&Append Attribute Input For Each Category
+                    response.attributes.forEach(attribute => {
+
+                        let attributeFormGroup = $('<div/>', {
+                            class: 'form-group col-md-3'
+                        });
+
+                        attributeFormGroup.append($('<lable/>', {
+                            for: attribute.name,
+                            text: attribute.name
+                        }));
+
+                        attributeFormGroup.append($('<input/>', {
+                            type: 'text',
+                            class: 'form-control',
+                            id: attribute.name,
+                            name: `attribute_ids[${attribute.id}]`
+                        }));
+
+
+                        $('#attributeEachCategory').append(attributeFormGroup);
+
+
+
+                    })
+                } else {
                     alert('مشکل در دریافت لیست ویژگی ها');
                 }
             }).fail(function() {
