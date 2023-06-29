@@ -147,9 +147,17 @@
         });
 
         $('#categorySelect').on('changed.bs.select' , function() {
-            let cateogryId = $(this).val();
+            let categoryId = $(this).val();
 
-            console.log(cateogryId);
+            $.get(`{{ url('/admin-panel/management/category-attributes-list/${categoryId}') }}`, function(response, status) {
+                if(status == 'success'){
+                    console.log(response);
+                }else{
+                    alert('مشکل در دریافت لیست ویژگی ها');
+                }
+            }).fail(function() {
+                alert('مشکل در دریافت لیست ویژگی ها')
+            });
         });
     </script>
 @endsection

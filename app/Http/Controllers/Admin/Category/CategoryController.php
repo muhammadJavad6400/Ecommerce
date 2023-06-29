@@ -165,4 +165,15 @@ class CategoryController extends Controller
         alert()->error('دسته بندی مورد نظر حذف شد' , ' !توجه توجه');
         return redirect()->route('admin.categories.index');
     }
+
+    public function getCategoryAttributes(Category $category)
+    {
+        $attributes = $category->attributes()->wherePivot('is_variation', 0)->get();
+        $variation = $category->attributes()->wherePivot('is_variation', 1)->first();
+
+        return [
+            'attributes' => $attributes,
+            'variation' => $variation
+        ];
+    }
 }
