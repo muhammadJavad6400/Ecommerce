@@ -81,13 +81,33 @@
 
                         </div>
                     </div>
-                </div>
 
+                    {{-- Product Categories and Attributes Section --}}
+
+                    <div class="col-md-12">
+                        <hr>
+                        <p>دسته بندی و ویژگی ها : </p>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="row justify-content-center">
+                            <div class="form-group col-md-3">
+                                <label for="category_id">دسته بندی</label>
+                                <select id="categorySelect" name="category_id" class="form-control" data-live-search="true">
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }} - {{ $category->parent->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="d-flex justify-content-center">
                     <button class="btn btn-outline-primary mt-5" type="submit">ثبت</button>
                     <a href="{{ route('admin.products.index') }}" class="btn btn-dark mt-5 mr-3">بازگشت</a>
                 </div>
+
 
             </form>
 
@@ -107,6 +127,10 @@
             'title': 'انتخاب تگ'
         });
 
+        $('#categorySelect').selectpicker({
+            'title': 'انتخاب دسته بندی'
+        });
+
         // Show File Name
         $('#primary_image').change(function() {
             //get the file name
@@ -120,6 +144,12 @@
             var fileName = $(this).val();
             //replace the "Choose a file" label
             $(this).next('.custom-file-label').html(fileName);
+        });
+
+        $('#categorySelect').on('changed.bs.select' , function() {
+            let cateogryId = $(this).val();
+
+            console.log(cateogryId);
         });
     </script>
 @endsection
