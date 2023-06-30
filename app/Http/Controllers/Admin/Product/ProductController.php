@@ -34,6 +34,28 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'name' => 'required|string',
+            'brand_id' => 'required',
+            'tag_ids' => 'required',
+            'tag_ids.*' => 'required',
+            'is_active' => 'required',
+            'description' => 'nullable|string',
+            'primary_image' => 'required|mimes:jpg,jpeg,png,svg',
+            'images' => 'required', // در ابتدا خود آرایه باید وجود داشته باشد
+            'images.*' => 'mimes:jpg,jpeg,png,svg', // بعد هر کدام از فیلد های آن آرایه هم باید وجود داشته باشند
+            'category_id' => 'required',
+            'attribute_ids' => 'required',
+            'attribute_ids.*' => 'required',
+            'variation_values' => 'required', // در ابتدا باید خود آرایه وجود داشته باشد
+            'variation_values.*.*' => 'required', // برای هر کدام از آرایه های متغییر و مقادیر درون آن آرایه ها
+            'variation_values.price.*' => 'integer', // هر کدام از فیلد های آرایه ی قمیت که در آرایه ی متغیر قرار دارد باید از نوع عدد باشد
+            'variation_values.quantity.*' => 'integer', // هر کدام از فیلد های آرایه ی تعداد که در آرایه ی متغیر قرار دارد باید از نوع عدد باشد
+            'delivery_amount' => 'nullable|integer',
+            'delivery_amount_per_product' => 'nullable|integer'
+        ]);
+
         dd($request->all());
     }
 
@@ -66,6 +88,5 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
     }
 }

@@ -219,6 +219,14 @@ return [
         'slug'                     => 'نام ثبتی',
         'attribute_ids'            => 'ویژگی',
         'attribute_is_filter_ids'  => 'ویژگی فیلتر شده',
-        'variation_id'             => 'ویژگی متغییر'
+        'variation_id'             => 'ویژگی متغییر',
+        'brand_id'                 => 'برند',
+        'tag_ids'                  => 'تگ',
+        'primary_image'            => 'تصویر اصلی',
+        'images'                   => 'تصاویر',
+        'category_id'              => 'دسته بندی',
+        'attribute_ids'           => 'ویژگی ها',
+        'variation_values'         => 'ویژگی متغیر',
+
     ],
 ];
