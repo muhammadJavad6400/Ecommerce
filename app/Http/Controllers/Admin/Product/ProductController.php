@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\Product\ProductImage\ProductImageController;
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Product;
+use App\Models\ProductImage;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
@@ -60,7 +62,23 @@ class ProductController extends Controller
         $productImageController = new ProductImageController();
         $fileNameImages = $productImageController->upload($request->primary_image, $request->images);
 
-        dd($fileNameImages);
+        $product = Product::create([
+            'category_id' => $request->category_id,
+            'brand_id' => $request->brand_id,
+            'name' => $request->name,
+            'description' => $request->description,
+            'primary_image' => $fileNameImages['fileNamePrimaryImage'],
+            'is_active' => $request->is_active,
+            'delivery_amount' => $request->delivery_amount,
+            'delivery_amount_per_product' => $request->delivery_amount_per_product,
+        ]);
+
+        foreach($fileNameImages['fileNameImages'] as $fileNameImage) {
+            ProductImage::create([
+                'product_id' => $product->id,
+                'image' => $fileNameImage,
+            ]);
+        }
 
     }
 
