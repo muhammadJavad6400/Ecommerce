@@ -53,4 +53,10 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function productAttributes()
+    {
+        return $this->hasMany(ProductAttribute::class);
+        // رابطه را با جدولی برقرار میکنیم که مقدار ویژگی های ما در آن قرار گرفته
+    }
 }

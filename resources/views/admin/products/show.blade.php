@@ -55,6 +55,21 @@
                     <label>هزینه ارسال به ازای محصول اضافی</label>
                     <input class="form-control" type="text" value="{{ $product->delivery_amount_per_product }}" disabled>
                 </div>
+
+                {{-- Delivery Attributes & Variations --}}
+                <div class="col-md-12">
+                    <hr>
+                    <p>ویژگی ها : </p>
+                </div>
+                @foreach ($productAttributes as $productAttribute)
+                    <div class="form-group col-md-3">
+                        <label for="">{{ $productAttribute->attribute->name }}</label>
+                        <input class="form-control" type="text" value="{{ $productAttribute->value }}" disabled>
+                    </div>
+
+                @endforeach
+
+
             </div>
 
             <div class="d-flex justify-content-center ">
@@ -67,7 +82,6 @@
                     @method('delete')
 
                     <button class="btn btn-outline-danger">حذف</button>
-
                 </form>
             </div>
         </div>
