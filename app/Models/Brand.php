@@ -34,4 +34,9 @@ class Brand extends Model
         return $is_active ? 'فعال' : 'غیرفعال';
     }
 
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+
 }
