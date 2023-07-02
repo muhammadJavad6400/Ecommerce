@@ -147,7 +147,7 @@ class CategoryController extends Controller
             DB::rollBack();
 
             alert()->error('مشکل در ویرایش دسته بندی', $ex->getMessage());
-            redirect()->route('admin.categories.create');
+            return redirect()->route('admin.categories.create');
         }
 
 

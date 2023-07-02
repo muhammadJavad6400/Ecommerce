@@ -9,11 +9,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
-use App\Models\ProductAttribute;
 use App\Models\ProductImage;
-use App\Models\ProductVariations;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -42,59 +41,76 @@ class ProductController extends Controller
     public function store(Request $request)
     {
 
-        // $request->validate([
-        //     'name' => 'required|string',
-        //     'brand_id' => 'required',
-        //     'tag_ids' => 'required',
-        //     'tag_ids.*' => 'required',
-        //     'is_active' => 'required',
-        //     'description' => 'nullable|string',
-        //     'primary_image' => 'required|mimes:jpg,jpeg,png,svg',
-        //     'images' => 'required', // در ابتدا خود آرایه باید وجود داشته باشد
-        //     'images.*' => 'mimes:jpg,jpeg,png,svg', // بعد هر کدام از فیلد های آن آرایه هم باید وجود داشته باشند
-        //     'category_id' => 'required',
-        //     'attribute_ids' => 'required',
-        //     'attribute_ids.*' => 'required',
-        //     'variation_values' => 'required', // در ابتدا باید خود آرایه وجود داشته باشد
-        //     'variation_values.*.*' => 'required', // برای هر کدام از آرایه های متغییر و مقادیر درون آن آرایه ها
-        //     'variation_values.price.*' => 'integer', // هر کدام از فیلد های آرایه ی قمیت که در آرایه ی متغیر قرار دارد باید از نوع عدد باشد
-        //     'variation_values.quantity.*' => 'integer', // هر کدام از فیلد های آرایه ی تعداد که در آرایه ی متغیر قرار دارد باید از نوع عدد باشد
-        //     'delivery_amount' => 'nullable|integer',
-        //     'delivery_amount_per_product' => 'nullable|integer'
-        // ]);
-
-        $productImageController = new ProductImageController();
-        $fileNameImages = $productImageController->upload($request->primary_image, $request->images);
-
-        $product = Product::create([
-            'category_id' => $request->category_id,
-            'brand_id' => $request->brand_id,
-            'name' => $request->name,
-            'description' => $request->description,
-            'primary_image' => $fileNameImages['fileNamePrimaryImage'],
-            'is_active' => $request->is_active,
-            'delivery_amount' => $request->delivery_amount,
-            'delivery_amount_per_product' => $request->delivery_amount_per_product,
+        $request->validate([
+            'name' => 'required|string',
+            'brand_id' => 'required',
+            'tag_ids' => 'required',
+            'tag_ids.*' => 'required',
+            'is_active' => 'required',
+            'description' => 'nullable|string',
+            'primary_image' => 'required|mimes:jpg,jpeg,png,svg',
+            'images' => 'required', // در ابتدا خود آرایه باید وجود داشته باشد
+            'images.*' => 'mimes:jpg,jpeg,png,svg', // بعد هر کدام از فیلد های آن آرایه هم باید وجود داشته باشند
+            'category_id' => 'required',
+            'attribute_ids' => 'required',
+            'attribute_ids.*' => 'required',
+            'variation_values' => 'required', // در ابتدا باید خود آرایه وجود داشته باشد
+            'variation_values.*.*' => 'required', // برای هر کدام از آرایه های متغییر و مقادیر درون آن آرایه ها
+            'variation_values.price.*' => 'integer', // هر کدام از فیلد های آرایه ی قمیت که در آرایه ی متغیر قرار دارد باید از نوع عدد باشد
+            'variation_values.quantity.*' => 'integer', // هر کدام از فیلد های آرایه ی تعداد که در آرایه ی متغیر قرار دارد باید از نوع عدد باشد
+            'delivery_amount' => 'nullable|integer',
+            'delivery_amount_per_product' => 'nullable|integer'
         ]);
 
-        foreach ($fileNameImages['fileNameImages'] as $fileNameImage) {
-            ProductImage::create([
-                'product_id' => $product->id,
-                'image' => $fileNameImage,
+        try {
+            DB::beginTransaction();
+
+            $productImageController = new ProductImageController();
+            $fileNameImages = $productImageController->upload($request->primary_image, $request->images);
+
+            $product = Product::create([
+                'category_id' => $request->category_id,
+                'brand_id' => $request->brand_id,
+                'name' => $request->name,
+                'description' => $request->description,
+                'primary_image' => $fileNameImages['fileNamePrimaryImage'],
+                'is_active' => $request->is_active,
+                'delivery_amount' => $request->delivery_amount,
+                'delivery_amount_per_product' => $request->delivery_amount_per_product,
             ]);
+
+            foreach ($fileNameImages['fileNameImages'] as $fileNameImage) {
+                ProductImage::create([
+                    'product_id' => $product->id,
+                    'image' => $fileNameImage,
+                ]);
+            }
+
+            $productAttributeController = new ProductAttributeController();
+            $productAttributeController->storeProductAttribute($request->attribute_ids, $product);
+
+
+            // دسترسی به آیدی دسته بندی مورد نظر
+            $category = Category::find($request->category_id);
+            // دسترسی به آیدی متغیر
+            $attributeId =  $category->attributes()->wherePivot('is_variation', 1)->first()->id;
+
+            $productVariationController = new ProductVariationController();
+            $productVariationController->storeProductVariation($request->variation_values, $attributeId, $product);
+
+            // ذخیره ی تگ های هر محصول در جدول میانی محصول-تگ
+            $product->tags()->attach($request->tag_ids);
+
+            DB::commit();
+
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            alert()->error('مشکل در ایجاد محصول', $ex->getMessage());
+            return redirect()->route('admin.products.create');
         }
 
-        $productAttributeController = new ProductAttributeController();
-        $productAttributeController->storeProductAttribute($request->attribute_ids, $product);
-
-
-        // دسترسی به آیدی دسته بندی مورد نظر
-        $category = Category::find($request->category_id);
-        // دسترسی به آیدی متغیر
-        $attributeId =  $category->attributes()->wherePivot('is_variation', 1)->first()->id;
-
-        $productVariationController = new ProductVariationController();
-        $productVariationController->storeProductVariation($request->variation_values, $attributeId, $product);
+        alert()->success('محصول مورد نظر ایجاد شد', 'با تشکر');
+        return redirect()->route('admin.products.index');
     }
 
     /**
