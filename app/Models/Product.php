@@ -59,4 +59,14 @@ class Product extends Model
         return $this->hasMany(ProductAttribute::class);
         // رابطه را با جدولی برقرار میکنیم که مقدار ویژگی های ما در آن قرار گرفته
     }
+
+    public function productVariations()
+    {
+        return $this->hasMany(ProductVariations::class);
+    }
+
+    public function productImages()
+    {
+        return $this->hasMany(ProductImage::class);
+    }
 }

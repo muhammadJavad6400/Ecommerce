@@ -121,7 +121,9 @@ class ProductController extends Controller
     {
         // Eager Loading To Solve N+1 Query
         $productAttributes = $product->productAttributes()->with('attribute')->get();
-        return view('admin.products.show', compact('product', 'productAttributes'));
+        $productVariations = $product->productVariations;
+        $productImages = $product->productImages;
+        return view('admin.products.show', compact('product', 'productAttributes', 'productVariations', 'productImages'));
     }
 
     /**
