@@ -6,13 +6,12 @@
 
 
 @section('content')
-
-     <!-- Content Row -->
-     <div class="row">
+    <!-- Content Row -->
+    <div class="row">
 
         <div class="col-xl-12 col-md-12 mb-4 p-md-5 bg-white">
             <div class="d-flex justify-content-between mb-4">
-                <h5 class="font-weight-bold">لیست  محصولات : ({{ $products->total() }})</h5>
+                <h5 class="font-weight-bold">لیست محصولات : ({{ $products->total() }})</h5>
                 <a class="btn btn-sm btn-outline-primary" href="{{ route('admin.products.create') }}">
                     <i class="fa fa-plus"></i>
                     ایجاد محصول
@@ -36,16 +35,20 @@
                             <tr>
                                 <th>{{ $products->firstItem() + $key }}</th>
                                 <td>
-                                    <a href="{{ route('admin.products.show', ['product' => $product->id]) }}" class="">{{ $product->name }}</a>
+                                    <a href="{{ route('admin.products.show', ['product' => $product->id]) }}"
+                                        class="">{{ $product->name }}</a>
                                 </td>
                                 <td>
-                                    <a href="{{ route('admin.brands.show', ['brand' => $product->brand->id]) }}" class="">{{ $product->brand->name }}</a>
+                                    <a href="{{ route('admin.brands.show', ['brand' => $product->brand->id]) }}"
+                                        class="">{{ $product->brand->name }}</a>
                                 </td>
                                 <td>
-                                    <a href="{{ route('admin.categories.show', ['category' => $product->category->id]) }}" class="">{{ $product->category->name }}</a>
+                                    <a href="{{ route('admin.categories.show', ['category' => $product->category->id]) }}"
+                                        class="">{{ $product->category->name }}</a>
                                 </td>
                                 <td>
-                                    <span class="{{ $product->getRawOriginal('is_active') ? 'text-success' : 'text-danger' }}">{{ $product->is_active }}</span>
+                                    <span
+                                        class="{{ $product->getRawOriginal('is_active') ? 'text-success' : 'text-danger' }}">{{ $product->is_active }}</span>
                                 </td>
                                 <td>
                                     <div class="btn-group">
@@ -55,14 +58,12 @@
                                         </button>
                                         <div class="dropdown-menu">
 
-                                            <a href="#"
-                                                class="dropdown-item text-right"> ویرایش محصول </a>
+                                            <a href="#" class="dropdown-item text-right"> ویرایش محصول </a>
 
-                                            <a href="#"
-                                                class="dropdown-item text-right"> ویرایش تصاویر </a>
+                                            <a href="#" class="dropdown-item text-right"> ویرایش تصاویر </a>
 
-                                            <a href="#"
-                                                class="dropdown-item text-right"> ویرایش دسته بندی و ویژگی </a>
+                                            <a href="#" class="dropdown-item text-right"> ویرایش دسته بندی و ویژگی
+                                            </a>
 
                                         </div>
                                     </div>
@@ -71,6 +72,9 @@
                         @endforeach
                     </tbody>
                 </table>
+            </div>
+            <div class="d-flex justify-content-center mt-5">
+                {{ $products->render() }}
             </div>
         </div>
     </div>
