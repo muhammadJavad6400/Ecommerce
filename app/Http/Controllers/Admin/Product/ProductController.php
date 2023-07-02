@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Admin\Product;
 
 use App\Http\Controllers\Admin\Product\ProductAttribute\ProductAttributeController;
 use App\Http\Controllers\Admin\Product\ProductImage\ProductImageController;
+use App\Http\Controllers\Admin\Product\ProductVariation\ProductVariationController;
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductAttribute;
 use App\Models\ProductImage;
+use App\Models\ProductVariations;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
@@ -75,7 +77,7 @@ class ProductController extends Controller
             'delivery_amount_per_product' => $request->delivery_amount_per_product,
         ]);
 
-        foreach($fileNameImages['fileNameImages'] as $fileNameImage) {
+        foreach ($fileNameImages['fileNameImages'] as $fileNameImage) {
             ProductImage::create([
                 'product_id' => $product->id,
                 'image' => $fileNameImage,
@@ -86,7 +88,13 @@ class ProductController extends Controller
         $productAttributeController->storeProductAttribute($request->attribute_ids, $product);
 
 
+        // دسترسی به آیدی دسته بندی مورد نظر
+        $category = Category::find($request->category_id);
+        // دسترسی به آیدی متغیر
+        $attributeId =  $category->attributes()->wherePivot('is_variation', 1)->first()->id;
 
+        $productVariationController = new ProductVariationController();
+        $productVariationController->storeProductVariation($request->variation_values, $attributeId, $product);
     }
 
     /**
