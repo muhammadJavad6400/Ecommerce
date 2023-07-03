@@ -12,7 +12,7 @@
 
         <div class="col-xl-12 col-md-12 mb-4 p-md-5 bg-white">
             <div class="mb-4">
-                <h5 class="font-weight-bold">ویرایش محصول</h5>
+                <h5 class="font-weight-bold">ویرایش محصول : {{ $product->name }}</h5>
             </div>
             <hr>
             @include('admin.sections.errors')
@@ -20,18 +20,6 @@
                 @csrf
                 @method('put')
                 <div class="row">
-
-
-                    <div class="form-group col-md-3">
-                        <div class="input-group">
-                            <div class="input-group-prepend order-2">
-                                <span class="input-group-text" id="test">
-                                    <i class="fas fa-clock"></i>
-                                </span>
-                            </div>
-                            <input type="text" class="form-control" id="testInput">
-                        </div>
-                    </div>
 
                     <div class="form-group col-md-3">
                         <label for="name">نام</label>
@@ -164,18 +152,34 @@
 
                                         <div class="form-group col-md-3">
                                             <label> تاریخ شروع حراجی </label>
-                                            <input type="text"
-                                                name="variation_values[{{ $variation->id }}][date_on_sale_from]"
-                                                value="{{ $variation->date_on_sale_from == null ? null : verta($variation->date_on_sale_from) }}"
-                                                class="form-control">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend order-2">
+                                                    <span class="input-group-text"
+                                                        id="variationDateOnSailFrom-{{ $variation->id }}">
+                                                        <i class="fas fa-clock"></i>
+                                                    </span>
+                                                </div>
+                                                <input type="text" class="form-control"
+                                                    id="variationInputDateOnSailFrom-{{ $variation->id }}"
+                                                    name="variation_values[{{ $variation->id }}][date_on_sale_from]"
+                                                    value="{{ $variation->date_on_sale_from == null ? null : verta($variation->date_on_sale_from) }}">
+                                            </div>
                                         </div>
 
                                         <div class="form-group col-md-3">
                                             <label> تاریخ پایان حراجی </label>
-                                            <input type="text"
-                                                name="variation_values[{{ $variation->id }}][date_on_sale_to]"
-                                                value="{{ $variation->date_on_sale_to == null ? null : verta($variation->date_on_sale_to) }}"
-                                                class="form-control">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend order-2">
+                                                    <span class="input-group-text"
+                                                        id="variationDateOnSailTo-{{ $variation->id }}">
+                                                        <i class="fas fa-clock"></i>
+                                                    </span>
+                                                </div>
+                                                <input type="text" class="form-control"
+                                                    id="variationInputDateOnSailTo-{{ $variation->id }}"
+                                                    name="variation_values[{{ $variation->id }}][date_on_sale_to]"
+                                                    value="{{ $variation->date_on_sale_to == null ? null : verta($variation->date_on_sale_to) }}">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -208,11 +212,23 @@
             'title': 'انتخاب دسته بندی'
         });
 
-        $('#test').MdPersianDateTimePicker({
-            targetTextSelector: '#testInput',
-            englishNumber:true,
-            enableTimePicker: true,
-            textFormat: 'yyyy-MM-dd HH:mm:ss',
+        let productVariations = @json($productVariations);
+        productVariations.forEach(productVariation => {
+
+            $(`#variationDateOnSailFrom-${productVariation.id}`).MdPersianDateTimePicker({
+                targetTextSelector: `#variationInputDateOnSailFrom-${productVariation.id}`,
+                englishNumber: false,
+                enableTimePicker: true,
+                textFormat: 'yyyy/MM/dd HH:mm:ss',
+            });
+
+            $(`#variationDateOnSailTo-${productVariation.id}`).MdPersianDateTimePicker({
+                targetTextSelector: `#variationInputDateOnSailTo-${productVariation.id}`,
+                englishNumber: false,
+                enableTimePicker: true,
+                textFormat: 'yyyy/MM/dd HH:mm:ss',
+            });
+
         });
     </script>
 @endsection
