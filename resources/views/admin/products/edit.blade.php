@@ -21,6 +21,18 @@
                 @method('put')
                 <div class="row">
 
+
+                    <div class="form-group col-md-3">
+                        <div class="input-group">
+                            <div class="input-group-prepend order-2">
+                                <span class="input-group-text" id="test">
+                                    <i class="fas fa-clock"></i>
+                                </span>
+                            </div>
+                            <input type="text" class="form-control" id="testInput">
+                        </div>
+                    </div>
+
                     <div class="form-group col-md-3">
                         <label for="name">نام</label>
                         <input class="form-control" id="name" name="name" type="text"
@@ -194,6 +206,13 @@
 
         $('#categorySelect').selectpicker({
             'title': 'انتخاب دسته بندی'
+        });
+
+        $('#test').MdPersianDateTimePicker({
+            targetTextSelector: '#testInput',
+            englishNumber:true,
+            enableTimePicker: true,
+            textFormat: 'yyyy-MM-dd HH:mm:ss',
         });
     </script>
 @endsection
