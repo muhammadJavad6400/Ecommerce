@@ -141,17 +141,17 @@
 
                                         {{-- Sale Section --}}
                                         <div class="col-md-12">
-                                            <p> حراج : </p>
+                                            <p> تخفیف : </p>
                                         </div>
 
                                         <div class="form-group col-md-3">
-                                            <label> قیمت حراجی </label>
+                                            <label> قیمت تخفیف </label>
                                             <input type="text" name="variation_values[{{ $variation->id }}][sale_price]"
                                                 value="{{ $variation->sale_price }}" class="form-control">
                                         </div>
 
                                         <div class="form-group col-md-3">
-                                            <label> تاریخ شروع حراجی </label>
+                                            <label> تاریخ شروع تخفیف </label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend order-2">
                                                     <span class="input-group-text"
@@ -167,7 +167,7 @@
                                         </div>
 
                                         <div class="form-group col-md-3">
-                                            <label> تاریخ پایان حراجی </label>
+                                            <label> تاریخ پایان تخفیف </label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend order-2">
                                                     <span class="input-group-text"
@@ -217,16 +217,16 @@
 
             $(`#variationDateOnSailFrom-${productVariation.id}`).MdPersianDateTimePicker({
                 targetTextSelector: `#variationInputDateOnSailFrom-${productVariation.id}`,
-                englishNumber: false,
+                englishNumber: true,
                 enableTimePicker: true,
-                textFormat: 'yyyy/MM/dd HH:mm:ss',
+                textFormat: 'yyyy-MM-dd HH:mm:ss',
             });
 
             $(`#variationDateOnSailTo-${productVariation.id}`).MdPersianDateTimePicker({
                 targetTextSelector: `#variationInputDateOnSailTo-${productVariation.id}`,
-                englishNumber: false,
+                englishNumber: true,
                 enableTimePicker: true,
-                textFormat: 'yyyy/MM/dd HH:mm:ss',
+                textFormat: 'yyyy-MM-dd HH:mm:ss',
             });
 
         });

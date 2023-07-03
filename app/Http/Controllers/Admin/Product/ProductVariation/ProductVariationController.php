@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Product\ProductVariation;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\ProductVariations;
+use Hekmatinasser\Verta\Facades\Verta;
 use Illuminate\Http\Request;
 
 class ProductVariationController extends Controller
@@ -25,5 +26,23 @@ class ProductVariationController extends Controller
                 'sku' => $variations['sku'][$i],
             ]);
         }
+    }
+
+    public function updateProductVariation($variationIds)
+    {
+        foreach($variationIds as $key => $value) {
+            $productVariation = ProductVariations::findOrFail($key);
+            $productVariation->update([
+                'price' => $value['price'],
+                'quantity' => $value['quantity'],
+                'sku' => $value['sku'],
+                'sale_price' => $value['sale_price'],
+                'date_on_sale_from' => convertJalaliDateToGregorian($value['date_on_sale_from']),
+                'date_on_sale_to' => convertJalaliDateToGregorian($value['date_on_sale_to']),
+
+            ]);
+        }
+
+
     }
 }

@@ -34,6 +34,15 @@
                     <input class="form-control" type="text" value="{{ $product->is_active }}" disabled>
                 </div>
                 <div class="form-group col-md-3">
+                    <label>تگ ها</label>
+                    <div class="form-control div-disabled">
+                        @foreach ($productTags as $productTag)
+                            {{ $productTag->name }} {{ $loop->last ? '' : '،' }}
+
+                        @endforeach
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
                     <label>تاریخ ایجاد</label>
                     <input class="form-control" type="text" value="{{ verta($product->created_at) }}" disabled>
                 </div>

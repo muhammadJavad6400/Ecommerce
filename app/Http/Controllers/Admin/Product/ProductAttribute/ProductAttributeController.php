@@ -17,6 +17,16 @@ class ProductAttributeController extends Controller
                 'value' => $value,    // اینم میشه مقدار هر کدام از ویژگی های ما
             ]);
         }
+    }
 
+    public function updateProductAttribute($attributeIds)
+    {
+        // $key == id & $value == value in Table Peoduct_attributes
+        foreach($attributeIds as $key => $value) {
+            $productAttribute = ProductAttribute::findOrFail($key);
+            $productAttribute->update([
+                'value' => $value,
+            ]);
+        }
     }
 }

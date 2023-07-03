@@ -122,7 +122,8 @@ class ProductController extends Controller
         $productAttributes = $product->productAttributes()->with('attribute')->get();
         $productVariations = $product->productVariations;
         $productImages = $product->productImages;
-        return view('admin.products.show', compact('product', 'productAttributes', 'productVariations', 'productImages'));
+        $productTags = $product->tags;
+        return view('admin.products.show', compact('product', 'productAttributes', 'productVariations', 'productImages', 'productTags'));
     }
 
     /**
@@ -162,7 +163,37 @@ class ProductController extends Controller
             'delivery_amount_per_product' => 'nullable|integer',
         ]);
 
-         //dd($request->all());
+        try {
+            DB::beginTransaction();
+
+            $product->update([
+                'name' => $request->name,
+                'brand_id' => $request->brand_id,
+                'description' => $request->description,
+                'is_active' => $request->is_active,
+                'delivery_amount' => $request->delivery_amount,
+                'delivery_amount_per_product' => $request->delivery_amount_per_product,
+            ]);
+
+
+            $productAttributeController = new ProductAttributeController();
+            $productAttributeController->updateProductAttribute($request->attribute_values);
+
+
+            $productVariationController = new ProductVariationController();
+            $productVariationController->updateProductVariation($request->variation_values);
+
+            $product->tags()->sync($request->tag_ids);
+
+            DB::commit();
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            alert()->error('مشکل در ویرایش محصول', $ex->getMessage());
+            return redirect()->back();
+        }
+
+        alert()->success('محصول مورد نظر ویرایش شد', 'با تشکر');
+        return redirect()->route('admin.products.index');
     }
 
     /**
