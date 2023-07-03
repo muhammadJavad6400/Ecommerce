@@ -86,6 +86,90 @@
                         <input class="form-control" id="delivery_amount_per_product" name="delivery_amount_per_product"
                             type="text" value="{{ $product->delivery_amount_per_product }}">
                     </div>
+
+                    {{-- Delivery Attributes & Variations --}}
+                    <div class="col-md-12">
+                        <hr>
+                        <p>ویژگی ها : </p>
+                    </div>
+                    @foreach ($productAttributes as $productAttribute)
+                        <div class="form-group col-md-3">
+                            <label for="">{{ $productAttribute->attribute->name }}</label>
+                            <input class="form-control" type="text" name="attribute_values[{{ $productAttribute->id }}]"
+                                value="{{ $productAttribute->value }}">
+                        </div>
+                    @endforeach
+
+                    @foreach ($productVariations as $variation)
+                        <div class="col-md-12">
+                            <hr>
+                            <div class="d-flex">
+                                <p class="mb-0"> قیمت و موجودی برای متغیر ( {{ $variation->value }} ) : </p>
+                                <p class="mb-0 mr-3">
+                                    <button class="btn btn-sm btn-primary" type="button" data-toggle="collapse"
+                                        data-target="#collapse-{{ $variation->id }}">
+                                        نمایش
+                                    </button>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="collapse mt-2" id="collapse-{{ $variation->id }}">
+                                <div class="card card-body">
+                                    <div class="row">
+                                        <div class="form-group col-md-3">
+                                            <label> قیمت </label>
+                                            <input type="text" class="form-control"
+                                                name="variation_values[{{ $variation->id }}][price]"
+                                                value="{{ $variation->price }}">
+                                        </div>
+
+                                        <div class="form-group col-md-3">
+                                            <label> تعداد </label>
+                                            <input type="text" class="form-control"
+                                                name="variation_values[{{ $variation->id }}][quantity]"
+                                                value="{{ $variation->quantity }}">
+                                        </div>
+
+                                        <div class="form-group col-md-3">
+                                            <label> sku </label>
+                                            <input type="text" class="form-control"
+                                                name="variation_values[{{ $variation->id }}][sku]"
+                                                value="{{ $variation->sku }}">
+                                        </div>
+
+                                        {{-- Sale Section --}}
+                                        <div class="col-md-12">
+                                            <p> حراج : </p>
+                                        </div>
+
+                                        <div class="form-group col-md-3">
+                                            <label> قیمت حراجی </label>
+                                            <input type="text" name="variation_values[{{ $variation->id }}][sale_price]"
+                                                value="{{ $variation->sale_price }}" class="form-control">
+                                        </div>
+
+                                        <div class="form-group col-md-3">
+                                            <label> تاریخ شروع حراجی </label>
+                                            <input type="text"
+                                                name="variation_values[{{ $variation->id }}][date_on_sale_from]"
+                                                value="{{ $variation->date_on_sale_from == null ? null : verta($variation->date_on_sale_from) }}"
+                                                class="form-control">
+                                        </div>
+
+                                        <div class="form-group col-md-3">
+                                            <label> تاریخ پایان حراجی </label>
+                                            <input type="text"
+                                                name="variation_values[{{ $variation->id }}][date_on_sale_to]"
+                                                value="{{ $variation->date_on_sale_to == null ? null : verta($variation->date_on_sale_to) }}"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
 
 

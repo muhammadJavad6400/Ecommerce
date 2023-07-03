@@ -133,8 +133,10 @@ class ProductController extends Controller
     {
        $brands = Brand::all();
        $tags = Tag::all();
+       $productAttributes = $product->productAttributes()->with('attribute')->get();
+       $productVariations = $product->productVariations;
        $categories = Category::where('parent_id', '!=', 0)->get();
-        return view('admin.products.edit', compact('product', 'brands', 'categories', 'tags'));
+        return view('admin.products.edit', compact('product', 'brands', 'categories', 'tags', 'productAttributes', 'productVariations'));
     }
 
     /**
@@ -142,7 +144,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        dd($request->all());
     }
 
     /**
