@@ -129,9 +129,12 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Product $product)
     {
-        //
+       $brands = Brand::all();
+       $tags = Tag::all();
+       $categories = Category::where('parent_id', '!=', 0)->get();
+        return view('admin.products.edit', compact('product', 'brands', 'categories', 'tags'));
     }
 
     /**
