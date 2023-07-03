@@ -54,7 +54,7 @@ class ProductController extends Controller
             'images.*' => 'mimes:jpg,jpeg,png,svg', // بعد هر کدام از فیلد های آن آرایه هم باید وجود داشته باشند
             'category_id' => 'required',
             'attribute_ids' => 'required',
-            'attribute_ids.*' => 'required',
+            'attribute_ids.*' => 'required|string',
             'variation_values' => 'required', // در ابتدا باید خود آرایه وجود داشته باشد
             'variation_values.*.*' => 'required', // برای هر کدام از آرایه های متغییر و مقادیر درون آن آرایه ها
             'variation_values.price.*' => 'integer', // هر کدام از فیلد های آرایه ی قمیت که در آرایه ی متغیر قرار دارد باید از نوع عدد باشد
@@ -103,7 +103,6 @@ class ProductController extends Controller
             $product->tags()->attach($request->tag_ids);
 
             DB::commit();
-
         } catch (\Exception $ex) {
             DB::rollBack();
             alert()->error('مشکل در ایجاد محصول', $ex->getMessage());
@@ -131,20 +130,39 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-       $brands = Brand::all();
-       $tags = Tag::all();
-       $productAttributes = $product->productAttributes()->with('attribute')->get();
-       $productVariations = $product->productVariations;
-       $categories = Category::where('parent_id', '!=', 0)->get();
+        $brands = Brand::all();
+        $tags = Tag::all();
+        $productAttributes = $product->productAttributes()->with('attribute')->get();
+        $productVariations = $product->productVariations;
+        $categories = Category::where('parent_id', '!=', 0)->get();
         return view('admin.products.edit', compact('product', 'brands', 'categories', 'tags', 'productAttributes', 'productVariations'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Product $product)
     {
-        dd($request->all());
+
+        $request->validate([
+            'name' => 'required',
+            'brand_id' => 'required|exists:brands,id',
+            'is_active' => 'required',
+            'tag_ids' => 'required',
+            'tag_ids.*' => 'exists:tags,id',
+            'description' => 'required',
+            'attribute_values' => 'required',
+            'variation_values' => 'required',
+            'variation_values.*.price' => 'required|integer',
+            'variation_values.*.quantity' => 'required|integer',
+            'variation_values.*.sale_price' => 'nullable|integer',
+            'variation_values.*.date_on_sale_from' => 'nullable|date',
+            'variation_values.*.date_on_sale_to' => 'nullable|date',
+            'delivery_amount' => 'required|integer',
+            'delivery_amount_per_product' => 'nullable|integer',
+        ]);
+
+         //dd($request->all());
     }
 
     /**
