@@ -206,4 +206,17 @@ class ProductController extends Controller
         alert()->error('محصول مورد نظر حذف شد' , ' !توجه توجه');
         return redirect()->route('admin.products.index');
     }
+
+    public function editProductCategory(Request $request, Product $product)
+    {
+        $categories = Category::where('parent_id', '!=' , 0)->get();
+        return view('admin.products.editProductCategory', compact('product', 'categories'));
+    }
+
+    public function updateProductCategory(Request $request, Product $product)
+    {
+        dd($request->all());
+
+    }
+
 }

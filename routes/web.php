@@ -40,4 +40,9 @@ Route::prefix('admin-panel/management')->name('admin.')->group(function() {
     Route::delete('/products/{product}/images-destroy', [AdminProductImageController::class, 'destroyProductImages'])->name('products.images.destroy');
     Route::put('/products/{product}/images-set-primary', [AdminProductImageController::class, 'setPrimaryProductImage'])->name('products.images.set.primary');
     Route::post('/products/{product}/images-add' ,[AdminProductImageController::class , 'addProductImages'])->name('products.images.add');
+
+    // Edit product Category
+    Route::get('/products/{product}/edit-product-category', [AdminProductController::class, 'editProductCategory'])->name('products.category.edit');
+    Route::put('/products/{product}/update-product-category', [AdminProductController::class, 'updateProductCategory'])->name('products.category.update');
+
 });
