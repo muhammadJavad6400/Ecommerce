@@ -202,6 +202,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        alert()->error('محصول مورد نظر حذف شد' , ' !توجه توجه');
+        return redirect()->route('admin.products.index');
     }
 }
