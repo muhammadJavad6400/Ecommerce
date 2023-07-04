@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class ProductImageController extends Controller
 {
-    public function upload($primaryImage, $images)
+    public function uploadProductImages($primaryImage, $images)
     {
         $fileNamePrimaryImage = generateFileName($primaryImage->getClientOriginalName());
         $primaryImage->move(public_path(env('PRODUCT_IMAGES_UPLOAD_PATH')), $fileNamePrimaryImage);
@@ -31,7 +31,7 @@ class ProductImageController extends Controller
     }
 
 
-    public function productImagesEdit(Product $product)
+    public function updateproductImages(Product $product)
     {
         $productImages = $product->productImages;
         return view('admin.products.editProductImages', compact('product', 'productImages'));

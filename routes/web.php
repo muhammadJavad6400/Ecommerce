@@ -37,5 +37,5 @@ Route::prefix('admin-panel/management')->name('admin.')->group(function() {
 
 
     // Edit Product Images
-    Route::get('/products/{product}/images-edit', [ProductImageController::class, 'productImagesEdit'])->name('products.images.edit');
+    Route::get('/products/{product}/images-edit', [ProductImageController::class, 'updateproductImages'])->name('products.images.edit');
 });

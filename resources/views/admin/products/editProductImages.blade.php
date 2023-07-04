@@ -16,14 +16,14 @@
             @include('admin.sections.errors')
 
             {{-- Show Primary Image --}}
-
             <div class="row">
                 <div class="col-12 col-md-12 mb-5">
                     <h5>تصویر اصلی</h5>
                 </div>
                 <div class="col-12 col-md-4 mb-5">
                     <div class="card">
-                        <img class="card-img-top" src="{{ url(env('PRODUCT_IMAGES_UPLOAD_PATH') . $product->primary_image) }}" alt="{{ $product->name }}">
+                        <img class="card-img-top" src="{{ url(env('PRODUCT_IMAGES_UPLOAD_PATH') . $product->primary_image) }}"
+                            alt="{{ $product->name }}">
                     </div>
                 </div>
             </div>
@@ -33,13 +33,13 @@
                     <h5>تصاویر محصول</h5>
                 </div>
                 @foreach ($productImages as $image)
-                <div class="col-md-3">
-                    <div class="card">
-                        <img class="card-img-top" src="{{ url(env('PRODUCT_IMAGES_UPLOAD_PATH') . $image->image) }}"
-                            alt="{{ $product->name }}">
+                    <div class="col-md-3">
+                        <div class="card">
+                            <img class="card-img-top" src="{{ url(env('PRODUCT_IMAGES_UPLOAD_PATH') . $image->image) }}"
+                                alt="{{ $product->name }}">
+                        </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
             </div>
         </div>
     </div>
@@ -126,4 +126,3 @@
         $("#czContainer").czMore();
     </script>
 @endsection
-

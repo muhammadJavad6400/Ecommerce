@@ -68,7 +68,7 @@ class ProductController extends Controller
             DB::beginTransaction();
 
             $productImageController = new ProductImageController();
-            $fileNameImages = $productImageController->upload($request->primary_image, $request->images);
+            $fileNameImages = $productImageController->uploadProductImages($request->primary_image, $request->images);
 
             $product = Product::create([
                 'category_id' => $request->category_id,
@@ -145,7 +145,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        
+
         $request->validate([
             'name' => 'required',
             'brand_id' => 'required|exists:brands,id',
