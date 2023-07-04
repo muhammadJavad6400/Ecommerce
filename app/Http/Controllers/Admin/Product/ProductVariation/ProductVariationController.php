@@ -30,7 +30,7 @@ class ProductVariationController extends Controller
 
     public function updateProductVariation($variationIds)
     {
-        foreach($variationIds as $key => $value) {
+        foreach ($variationIds as $key => $value) {
             $productVariation = ProductVariations::findOrFail($key);
             $productVariation->update([
                 'price' => $value['price'],
@@ -42,7 +42,27 @@ class ProductVariationController extends Controller
 
             ]);
         }
+    }
 
+
+    public function changeProductVariation($variations, $attributeId, $product)
+    {
+        ProductVariations::where('product_id', $product->id)->delete();
+
+
+         $counter = count($variations['value']);
+
+
+         for ($i = 0; $i < $counter; $i++) {
+             ProductVariations::create([
+                 'attribute_id' => $attributeId,
+                 'product_id' => $product->id,
+                 'value' => $variations['value'][$i],
+                 'price' => $variations['price'][$i],
+                 'quantity' => $variations['quantity'][$i],
+                 'sku' => $variations['sku'][$i],
+             ]);
+         }
 
     }
 }

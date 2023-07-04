@@ -10,7 +10,7 @@ class ProductAttributeController extends Controller
 {
     public function storeProductAttribute($attributes, $product)
     {
-        foreach($attributes as $key => $value) {
+        foreach ($attributes as $key => $value) {
             ProductAttribute::create([
                 'product_id' => $product->id,
                 'attribute_id' => $key, // چون آرایه انجمنی بود این میشه همون ایدی هر کدوم از ویژگی های ما
@@ -22,9 +22,21 @@ class ProductAttributeController extends Controller
     public function updateProductAttribute($attributeIds)
     {
         // $key == id & $value == value in Table Peoduct_attributes
-        foreach($attributeIds as $key => $value) {
+        foreach ($attributeIds as $key => $value) {
             $productAttribute = ProductAttribute::findOrFail($key);
             $productAttribute->update([
+                'value' => $value,
+            ]);
+        }
+    }
+
+    public function changeProductAttribute($attributes, $product)
+    {
+        ProductAttribute::where('product_id', $product->id)->delete();
+        foreach ($attributes as $key => $value) {
+            ProductAttribute::create([
+                'product_id' => $product->id,
+                'attribute_id' => $key,
                 'value' => $value,
             ]);
         }

@@ -203,20 +203,59 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
-        alert()->error('محصول مورد نظر حذف شد' , ' !توجه توجه');
+        alert()->error('محصول مورد نظر حذف شد', ' !توجه توجه');
         return redirect()->route('admin.products.index');
     }
 
     public function editProductCategory(Request $request, Product $product)
     {
-        $categories = Category::where('parent_id', '!=' , 0)->get();
+        $categories = Category::where('parent_id', '!=', 0)->get();
         return view('admin.products.editProductCategory', compact('product', 'categories'));
     }
 
     public function updateProductCategory(Request $request, Product $product)
     {
-        dd($request->all());
+        //dd($request->all());
+        $request->validate([
+            'category_id' => 'required',
+            'attribute_ids' => 'required',
+            'attribute_ids.*' => 'required|string',
+            'variation_values' => 'required',
+            'variation_values.*.*' => 'required',
+            'variation_values.price.*' => 'integer',
+            'variation_values.quantity.*' => 'integer',
+        ]);
 
+        try {
+            DB::beginTransaction();
+
+
+            $product->update([
+                'category_id' => $request->category_id,
+            ]);
+
+
+
+            $productAttributeController = new ProductAttributeController();
+            $productAttributeController->changeProductAttribute($request->attribute_ids, $product);
+
+
+            // دسترسی به آیدی دسته بندی مورد نظر
+            $category = Category::find($request->category_id);
+            // دسترسی به آیدی متغیر
+            $attributeId =  $category->attributes()->wherePivot('is_variation', 1)->first()->id;
+
+            $productVariationController = new ProductVariationController();
+            $productVariationController->changeProductVariation($request->variation_values, $attributeId, $product);
+
+            DB::commit();
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            alert()->error('مشکل در ایجاد محصول', $ex->getMessage());
+            return redirect()->route('admin.products.create');
+        }
+
+        alert()->success('محصول مورد نظر ایجاد شد', 'با تشکر');
+        return redirect()->route('admin.products.index');
     }
-
 }
