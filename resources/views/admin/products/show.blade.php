@@ -174,7 +174,7 @@
 
             <div class="d-flex justify-content-center ">
 
-                <a href="{{ route('admin.products.index') }}" class="btn btn-dark mt-5">بازگشت</a>
+                <a href="{{ route('admin.products.index') }}" class="btn btn-outline-dark mt-5">بازگشت</a>
 
                 <form class="mt-5 mr-3" action="{{ route('admin.products.destroy', ['product' => $product->id]) }}"
                     method="POST">

@@ -4,7 +4,7 @@ use App\Http\Controllers\Admin\Attribute\AttributeController as AdminAttributeCo
 use App\Http\Controllers\Admin\Brand\BrandController as AdminBrandController;
 use App\Http\Controllers\Admin\Category\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\Product\ProductController as AdminProductController;
-use App\Http\Controllers\Admin\Product\ProductImage\ProductImageController;
+use App\Http\Controllers\Admin\Product\ProductImage\ProductImageController as AdminProductImageController;
 use App\Http\Controllers\Admin\Tag\TagController as AdminTagController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,7 +35,9 @@ Route::prefix('admin-panel/management')->name('admin.')->group(function() {
     // Get Category Attribute
     Route::get('/category-attributes-list/{category}', [AdminCategoryController::class, 'getCategoryAttributes']);
 
-
     // Edit Product Images
-    Route::get('/products/{product}/images-edit', [ProductImageController::class, 'updateproductImages'])->name('products.images.edit');
+    Route::get('/products/{product}/images-edit', [AdminProductImageController::class, 'updateproductImages'])->name('products.images.edit');
+    Route::delete('/products/images-destroy', [AdminProductImageController::class, 'destroyProductImages'])->name('products.images.destroy');
+    Route::put('/products/{product}/images-set-primary', [AdminProductImageController::class, 'setPrimaryProductImage'])->name('products.images.set.primary');
+    Route::post('/products/{product}/images-add' ,[AdminProductImageController::class , 'addProductImages'])->name('products.images.add');
 });

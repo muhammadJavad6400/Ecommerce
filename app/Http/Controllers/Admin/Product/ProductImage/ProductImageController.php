@@ -37,4 +37,14 @@ class ProductImageController extends Controller
         return view('admin.products.editProductImages', compact('product', 'productImages'));
 
     }
+
+    public function destroyProductImages()
+    {
+
+    }
+
+    public function setPrimaryProductImage()
+    {
+
+    }
 }

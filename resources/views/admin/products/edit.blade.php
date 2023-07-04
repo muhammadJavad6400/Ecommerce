@@ -190,8 +190,8 @@
 
 
                 <div class="d-flex justify-content-center">
-                    <button class="btn btn-outline-primary mt-5" type="submit">ویرایش</button>
-                    <a href="{{ route('admin.products.index') }}" class="btn btn-dark mt-5 mr-3">بازگشت</a>
+                    <button class="btn btn-outline-warning mt-5" type="submit">ویرایش</button>
+                    <a href="{{ route('admin.products.index') }}" class="btn btn-outline-dark mt-5 mr-3">بازگشت</a>
                 </div>
             </form>
         </div>
