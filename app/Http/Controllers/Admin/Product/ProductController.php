@@ -11,6 +11,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\Tag;
+use Faker\Provider\Lorem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -144,7 +145,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-
+        
         $request->validate([
             'name' => 'required',
             'brand_id' => 'required|exists:brands,id',
@@ -199,7 +200,8 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Product $product)
     {
+        //
     }
 }

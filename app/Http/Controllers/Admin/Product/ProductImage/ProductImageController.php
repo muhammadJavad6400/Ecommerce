@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Product\ProductImage;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductImageController extends Controller
@@ -26,6 +27,14 @@ class ProductImageController extends Controller
             'fileNamePrimaryImage' => $fileNamePrimaryImage,
             'fileNameImages' => $fileNameImages
         ];
+
+    }
+
+
+    public function productImagesEdit(Product $product)
+    {
+        $productImages = $product->productImages;
+        return view('admin.products.editProductImages', compact('product', 'productImages'));
 
     }
 }
