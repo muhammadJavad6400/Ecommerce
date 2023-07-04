@@ -39,7 +39,7 @@
                                 alt="{{ $product->name }}">
                             <div class="card-body text-center">
                                 <div class="d-flex justify-content-center">
-                                    <form class="ml-2" action="{{ route('admin.products.images.destroy') }}"
+                                    <form class="ml-2" action="{{ route('admin.products.images.destroy', ['product' => $product->id]) }}"
                                         method="post">
                                         @csrf
                                         @method('delete')

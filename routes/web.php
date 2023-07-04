@@ -37,7 +37,7 @@ Route::prefix('admin-panel/management')->name('admin.')->group(function() {
 
     // Edit Product Images
     Route::get('/products/{product}/images-edit', [AdminProductImageController::class, 'updateproductImages'])->name('products.images.edit');
-    Route::delete('/products/images-destroy', [AdminProductImageController::class, 'destroyProductImages'])->name('products.images.destroy');
+    Route::delete('/products/{product}/images-destroy', [AdminProductImageController::class, 'destroyProductImages'])->name('products.images.destroy');
     Route::put('/products/{product}/images-set-primary', [AdminProductImageController::class, 'setPrimaryProductImage'])->name('products.images.set.primary');
     Route::post('/products/{product}/images-add' ,[AdminProductImageController::class , 'addProductImages'])->name('products.images.add');
 });
