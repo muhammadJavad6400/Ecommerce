@@ -63,9 +63,9 @@ class BannerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Banner $banner)
     {
-        //
+        return view('admin.banners.show', compact('banner'));
     }
 
     /**
@@ -107,7 +107,7 @@ class BannerController extends Controller
             'button_link' => $request->button_link,
             'button_icon' => $request->button_icon,
         ]);
-        
+
 
         alert()->success('بنر مورد نظر ویرایش شد', 'باتشکر');
         return redirect()->route('admin.banners.index');
