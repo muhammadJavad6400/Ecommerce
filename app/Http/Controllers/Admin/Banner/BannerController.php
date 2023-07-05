@@ -116,8 +116,11 @@ class BannerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Banner $banner)
     {
-        //
+        $banner->delete();
+
+        alert()->error('بنر مورد نظر حذف شد', ' !توجه توجه');
+        return redirect()->route('admin.banners.index');
     }
 }
