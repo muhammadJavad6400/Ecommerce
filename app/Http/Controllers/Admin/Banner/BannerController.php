@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Banner;
 
+use App\Http\Controllers\Admin\Banner\BannerImage\BannerImageController;
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use Illuminate\Http\Request;
@@ -27,9 +28,34 @@ class BannerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Banner $banner)
+    public function store(Request $request)
     {
-       dd($request->all());
+        $request->validate([
+            'bannerImage' => 'required|mimes:jpg,jpeg,png,svg',
+            'title' => 'required|string',
+            'text' => 'required|string',
+            'is_active' => 'required',
+            'priority' => 'required|integer',
+            'type' => 'required'
+        ]);
+
+        $bannerImageController = new BannerImageController();
+        $bannerNameImage = $bannerImageController->uploadBannerImage($request->bannerImage);
+
+        Banner::create([
+            'image' => $bannerNameImage,
+            'title' => $request->title,
+            'text' => $request->text,
+            'priority' => $request->priority,
+            'is_active' => $request->is_active,
+            'type' => $request->type,
+            'button_text' => $request->button_text,
+            'button_link' => $request->button_link,
+            'button_icon' => $request->button_icon,
+        ]);
+
+        alert()->success('بنر مورد نظر ایجاد شد', 'باتشکر');
+        return redirect()->route('admin.banners.index');
     }
 
     /**

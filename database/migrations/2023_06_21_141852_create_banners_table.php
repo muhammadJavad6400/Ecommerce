@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('banners', function (Blueprint $table) {
             $table->id();
 
-            $table->string('images');
+            $table->string('image');
             $table->string('title')->nullable();
             $table->text('text')->nullable();
             $table->integer('priority')->nullable();  // الویت بندی

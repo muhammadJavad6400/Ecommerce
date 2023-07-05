@@ -225,8 +225,10 @@ return [
         'primary_image'            => 'تصویر اصلی',
         'images'                   => 'تصاویر',
         'category_id'              => 'دسته بندی',
-        'attribute_ids'           => 'ویژگی ها',
+        'attribute_ids'            => 'ویژگی ها',
         'variation_values'         => 'ویژگی متغیر',
-
+        'bannerImage'             => 'تصویر بنر',
+        'priority'                 => 'اولویت بنر',
+        'type'                     => 'نوع بنر',
     ],
 ];

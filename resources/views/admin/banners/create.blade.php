@@ -18,10 +18,10 @@
                 @csrf
                 <div class="form-row">
                     <div class="form-group col-md-3">
-                        <label for="banner_image">انتخاب تصویر</label>
+                        <label for="bannerImage">انتخاب تصویر</label>
                         <div class="custom-file">
-                            <input type="file" name="banner_image" class="custom-file-input" id="banner_image">
-                            <label class="custom-file-label" for="banner_image"> انتخاب فایل </label>
+                            <input type="file" name="bannerImage" class="custom-file-input" id="bannerImage">
+                            <label class="custom-file-label" for="bannerImage"> انتخاب فایل </label>
                         </div>
                     </div>
                     <div class="form-group col-md-3">
@@ -79,7 +79,7 @@
 @section('script')
     <script>
         // Show File Name
-        $('#banner_image').change(function() {
+        $('#bannerImage').change(function() {
             //get the file name
             var fileName = $(this).val();
             //replace the "Choose a file" label
