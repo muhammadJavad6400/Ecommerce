@@ -21,4 +21,9 @@ class Banner extends Model
         'butten_link',
         'butten_icon'
     ];
+
+    public function getIsActiveAttribute($is_active)
+    {
+        return $is_active ? 'فعال' : 'غیرفعال';
+    }
 }
