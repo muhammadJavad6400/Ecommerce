@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\Attribute\AttributeController as AdminAttributeController;
+use App\Http\Controllers\Admin\Banner\BannerController as AdminBannerController;
 use App\Http\Controllers\Admin\Brand\BrandController as AdminBrandController;
 use App\Http\Controllers\Admin\Category\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\Product\ProductController as AdminProductController;
@@ -31,6 +32,7 @@ Route::prefix('admin-panel/management')->name('admin.')->group(function() {
     Route::resource('categories', AdminCategoryController::class);
     Route::resource('tags', AdminTagController::class);
     Route::resource('products', AdminProductController::class);
+    Route::resource('banners', AdminBannerController::class);
 
     // Get Category Attribute
     Route::get('/category-attributes-list/{category}', [AdminCategoryController::class, 'getCategoryAttributes']);
