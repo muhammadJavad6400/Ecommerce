@@ -55,6 +55,7 @@ class BannerController extends Controller
             'button_icon' => $request->button_icon,
         ]);
 
+
         alert()->success('بنر مورد نظر ایجاد شد', 'باتشکر');
         return redirect()->route('admin.banners.index');
     }
@@ -70,17 +71,46 @@ class BannerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Banner $banner)
     {
-        //
+        return view('admin.banners.edit', compact('banner'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Banner $banner)
     {
-        //
+        $request->validate([
+            'bannerImage' => 'nullable|mimes:jpg,jpeg,png,svg',
+            'title' => 'required|string',
+            'text' => 'required|string',
+            'is_active' => 'required',
+            'priority' => 'required|integer',
+            'type' => 'required'
+        ]);
+
+        if($request->has('bannerImage')) {
+            $bannerImageController = new BannerImageController();
+            $bannerNameImage = $bannerImageController->uploadBannerImage($request->bannerImage);
+        }
+
+
+        $banner->update([
+            'image' => $request->has('bannerImage') ? $bannerNameImage : $banner->image,
+            'title' => $request->title,
+            'text' => $request->text,
+            'priority' => $request->priority,
+            'is_active' => $request->is_active,
+            'type' => $request->type,
+            'button_text' => $request->button_text,
+            'button_link' => $request->button_link,
+            'button_icon' => $request->button_icon,
+        ]);
+        
+
+        alert()->success('بنر مورد نظر ویرایش شد', 'باتشکر');
+        return redirect()->route('admin.banners.index');
     }
 
     /**

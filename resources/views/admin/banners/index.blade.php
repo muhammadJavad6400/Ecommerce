@@ -52,9 +52,9 @@
                                     </span>
                                 </td>
                                 <td>{{ $banner->type }}</td>
-                                <td>{{ $banner->butten_text }}</td>
-                                <td>{{ $banner->butten_link }}</td>
-                                <td>{{ $banner->butten_icon }}</td>
+                                <td>{{ $banner->button_text }}</td>
+                                <td>{{ $banner->button_link }}</td>
+                                <td>{{ $banner->button_icon }}</td>
                                 <td>
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle"

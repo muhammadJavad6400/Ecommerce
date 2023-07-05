@@ -17,9 +17,9 @@ class Banner extends Model
         'priority',
         'is_active',
         'type',
-        'butten_text',
-        'butten_link',
-        'butten_icon'
+        'button_text',
+        'button_link',
+        'button_icon'
     ];
 
     public function getIsActiveAttribute($is_active)

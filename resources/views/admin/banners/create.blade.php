@@ -35,7 +35,7 @@
                             value="{{ old('text') }}">
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="priority">الویت</label>
+                        <label for="priority">اولویت</label>
                         <input class="form-control" id="priority" name="priority" type="number"
                             value="{{ old('priority') }}">
                     </div>
@@ -52,19 +52,19 @@
                             value="{{ old('type') }}">
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="butten_text">متن دکمه</label>
-                        <input class="form-control" id="butten_text" name="butten_text" type="text"
-                            value="{{ old('butten_text') }}">
+                        <label for="button_text">متن دکمه</label>
+                        <input class="form-control" id="button_text" name="button_text" type="text"
+                            value="{{ old('button_text') }}">
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="butten_link">لینک دکمه</label>
-                        <input class="form-control" id="butten_link" name="butten_link" type="text"
-                            value="{{ old('butten_link') }}">
+                        <label for="button_link">لینک دکمه</label>
+                        <input class="form-control" id="button_link" name="button_link" type="text"
+                            value="{{ old('button_link') }}">
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="butten_icon">آیکون</label>
-                        <input class="form-control" id="butten_icon" name="butten_icon" type="text"
-                            value="{{ old('butten_icon') }}">
+                        <label for="button_icon">آیکون</label>
+                        <input class="form-control" id="button_icon" name="button_icon" type="text"
+                            value="{{ old('button_icon') }}">
                     </div>
                 </div>
                 <div class="d-flex justify-content-center">

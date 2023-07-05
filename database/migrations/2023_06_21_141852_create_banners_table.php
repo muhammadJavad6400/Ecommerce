@@ -20,9 +20,9 @@ return new class extends Migration
             $table->integer('priority')->nullable();  // الویت بندی
             $table->boolean('is_active')->default(1); // Show Banner
             $table->string('type');
-            $table->string('butten_text')->nullable();
-            $table->string('butten_link')->nullable();
-            $table->string('butten_icon')->nullable();
+            $table->string('button_text')->nullable();
+            $table->string('button_link')->nullable();
+            $table->string('button_icon')->nullable();
 
             $table->softDeletes();
             $table->timestamps();
