@@ -37,8 +37,7 @@
                             <tr>
                                 <th>{{ $products->firstItem() + $key }}</th>
                                 <td>
-                                    <a href="{{ route('admin.products.show', ['product' => $product->id]) }}"
-                                        class="">{{ $product->name }}</a>
+                                    {{ $product->name }}
                                 </td>
                                 <td>
                                     <a href="{{ route('admin.brands.show', ['brand' => $product->brand->id]) }}"
@@ -66,6 +65,8 @@
 
                                             <a href="{{ route('admin.products.category.edit', ['product' => $product->id]) }}" class="dropdown-item text-right"> ویرایش دسته بندی و ویژگی
                                             </a>
+                                            <a href="{{ route('admin.products.show', ['product' => $product->id]) }}"
+                                                class="dropdown-item text-right">نمایش محصول</a>
 
                                         </div>
                                     </div>

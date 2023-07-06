@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-center">
-                    <button class="btn btn-outline-primary mt-5" type="submit">ثبت</button>
+                    <button class="btn btn-outline-success mt-5" type="submit">ثبت</button>
                     <a href="{{ route('admin.attributes.index') }}" class="btn btn-outline-dark mt-5 mr-3">بازگشت</a>
                 </div>
 

@@ -12,7 +12,7 @@
             <div class="d-flex flex-column text-center flex-md-row justify-content-md-between mb-4">
                 <h5 class="font-weight-bold mb-3 mb-0">لیست برند ها ({{ $brands->total() }})</h5>
                 <div>
-                    <a class="btn btn-sm btn-outline-primary" href="{{ route('admin.brands.create') }}">
+                    <a class="btn btn-md btn-outline-primary" href="{{ route('admin.brands.create') }}">
                         <i class="fa fa-plus"></i>
                         ایجاد برند
                     </a>
@@ -40,10 +40,19 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <a class="btn btn-sm btn-outline-success"
-                                        href="{{ route('admin.brands.show', ['brand' => $brand->id]) }}">نمایش</a>
-                                    <a class="btn btn-sm btn-outline-info mr-2"
-                                        href="{{ route('admin.brands.edit', ['brand' => $brand->id]) }}">ویرایش</a>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            عملیات
+                                        </button>
+                                        <div class="dropdown-menu">
+
+                                            <a href="{{ route('admin.brands.edit', ['brand' => $brand->id]) }}" class="dropdown-item text-right">ویرایش برند</a>
+
+                                            <a href="{{ route('admin.brands.show', ['brand' => $brand->id]) }}" class="dropdown-item text-right">نمایش برند</a>
+
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

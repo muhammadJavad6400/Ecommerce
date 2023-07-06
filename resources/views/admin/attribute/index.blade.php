@@ -12,7 +12,7 @@
             <div class="d-flex flex-column text-center flex-md-row justify-content-md-between mb-4">
                 <h5 class="font-weight-bold mb-3 mb-0">لیست ویژگی ها ({{ $attributes->total() }})</h5>
                 <div class="">
-                    <a class="btn btn-sm btn-outline-primary" href="{{ route('admin.attributes.create') }}">
+                    <a class="btn btn-md btn-outline-primary" href="{{ route('admin.attributes.create') }}">
                         <i class="fa fa-plus"></i>
                         ایجاد ویژگی
                     </a>
@@ -34,10 +34,18 @@
                                 <th>{{ $attributes->firstItem() + $key }}</th>
                                 <td>{{ $attribute->name }}</td>
                                 <td>
-                                    <a class="btn btn-sm btn-outline-success"
-                                        href="{{ route('admin.attributes.show', ['attribute' => $attribute->id]) }}">نمایش</a>
-                                    <a class="btn btn-sm btn-outline-info mr-2"
-                                        href="{{ route('admin.attributes.edit', ['attribute' => $attribute->id]) }}">ویرایش</a>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            عملیات
+                                        </button>
+                                        <div class="dropdown-menu">
+
+                                            <a href="{{ route('admin.attributes.edit', ['attribute' => $attribute->id]) }}" class="dropdown-item text-right">ویرایش ویژگی</a>
+
+                                            <a href="{{ route('admin.attributes.show', ['attribute' => $attribute->id]) }}" class="dropdown-item text-right">نمایش ویژگی</a>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

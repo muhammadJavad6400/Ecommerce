@@ -99,7 +99,7 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-center">
-                    <button class="btn btn-outline-primary mt-5" type="submit">ویرایش</button>
+                    <button class="btn btn-outline-info mt-5" type="submit">ویرایش</button>
                     <a href="{{ route('admin.categories.index') }}" class="btn btn-outline-dark mt-5 mr-3">بازگشت</a>
                 </div>
 

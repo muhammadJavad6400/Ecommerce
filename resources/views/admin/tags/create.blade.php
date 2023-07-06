@@ -26,8 +26,8 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-center">
-                    <button class="btn btn-outline-primary mt-5" type="submit">ثبت</button>
-                    <a href="{{ route('admin.tags.index') }}" class="btn btn-outline-darkmt-5 mr-3">بازگشت</a>
+                    <button class="btn btn-outline-success mt-5" type="submit">ثبت</button>
+                    <a href="{{ route('admin.tags.index') }}" class="btn btn-outline-dark mt-5 mr-3">بازگشت</a>
                 </div>
 
             </form>
