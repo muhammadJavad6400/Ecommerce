@@ -10,7 +10,7 @@
     <meta name="author" content="">
 
     <title>Mufateh.ir - @yield('title')</title>
-    
+
     <!-- Custom styles for this template-->
     <link href="{{ asset('/css/home.css') }}" rel="stylesheet">
     @yield('style')
@@ -19,7 +19,19 @@
 
 <body>
 
-    @yield('content')
+    <div class="wrapper">
+
+        @include('home.sections.header')
+
+        @include('home.sections.mobile_off_canvas')
+
+        @yield('content')
+
+        @include('home.sections.footer')
+
+    </div>
+
+
 
 
     <!-- JavaScript-->
