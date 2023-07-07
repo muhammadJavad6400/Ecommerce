@@ -1,5 +1,5 @@
 require("bootstrap/dist/js/bootstrap.bundle");
-require("sweetalert");
+
 
 (function ($) {
     "use strict";

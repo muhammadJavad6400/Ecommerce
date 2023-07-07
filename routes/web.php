@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\Category\CategoryController as AdminCategoryContr
 use App\Http\Controllers\Admin\Product\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\Product\ProductImage\ProductImageController as AdminProductImageController;
 use App\Http\Controllers\Admin\Tag\TagController as AdminTagController;
+use App\Http\Controllers\Home\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -48,3 +49,5 @@ Route::prefix('admin-panel/management')->name('admin.')->group(function() {
     Route::put('/products/{product}/update-product-category', [AdminProductController::class, 'updateProductCategory'])->name('products.category.update');
 
 });
+
+Route::get('/' , [HomeController::class , 'index']);
