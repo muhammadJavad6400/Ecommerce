@@ -41,7 +41,7 @@
                             <tr>
                                 <th>{{ $banners->firstItem() + $key }}</th>
                                 <td>
-                                    <a target="_blank" href="{{ url(env('BANNER_IMAGES_UPLOAD_PATH'). $banner->image) }}">تصویر بنر</a>
+                                    <a target="_blank" href="{{ url(env('BANNER_IMAGES_UPLOAD_PATH'). $banner->image) }}">تصویر</a>
                                 </td>
                                 <td>{{ $banner->title }}</td>
                                 <td>{{ $banner->text }}</td>

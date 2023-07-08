@@ -34,7 +34,7 @@ class BannerController extends Controller
         $request->validate([
             'bannerImage' => 'required|mimes:jpg,jpeg,png,svg',
             'title' => 'required|string',
-            'text' => 'required|string',
+            'text' => 'nullable|string',
             'is_active' => 'required',
             'priority' => 'required|integer',
             'type' => 'required'
@@ -84,7 +84,7 @@ class BannerController extends Controller
         $request->validate([
             'bannerImage' => 'nullable|mimes:jpg,jpeg,png,svg',
             'title' => 'required|string',
-            'text' => 'required|string',
+            'text' => 'nullable|string',
             'is_active' => 'required',
             'priority' => 'required|integer',
             'type' => 'required'
