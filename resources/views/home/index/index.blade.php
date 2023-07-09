@@ -1447,36 +1447,45 @@
 
                                         </ul>
                                     </div>
-                                    <div class="pro-details-size-color text-right">
-                                        <div class="pro-details-size">
-                                            <span>سایز</span>
-                                            <div class="pro-details-size-content">
-                                                <ul>
-                                                    <li><a href="#">s</a></li>
-                                                    <li><a href="#">m</a></li>
-                                                    <li><a href="#">l</a></li>
-                                                    <li><a href="#">xl</a></li>
-                                                    <li><a href="#">xxl</a></li>
-                                                </ul>
+                                    @if ($product->quantity_check)
+                                        <div class="pro-details-size-color text-right">
+                                            <div class="pro-details-size w-50">
+                                                <span>{{ App\Models\ProductAttribute::find($product->productVariations->first()->attribute_id)->name }}</span>
+                                                <select class="form-control" id="">
+                                                    @foreach ($product->productVariations()->where('quantity', '>', 0)->get() as $variation)
+                                                        <option value="{{ $variation->id }}">{{ $variation->value }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                        <div class="pro-details-quality">
+                                            <div class="cart-plus-minus">
+                                                <input class="cart-plus-minus-box" type="text" name="qtybutton"
+                                                    value="2" />
+                                            </div>
+                                            <div class="pro-details-cart">
+                                                <a href="#">افزودن به سبد خرید</a>
+                                            </div>
+                                            <div class="pro-details-wishlist">
+                                                <a title="Add To Wishlist" href="#"><i
+                                                        class="sli sli-heart"></i></a>
+                                            </div>
+                                            <div class="pro-details-compare">
+                                                <a title="Add To Compare" href="#"><i
+                                                        class="sli sli-refresh"></i></a>
                                             </div>
                                         </div>
+                                    @else
+                                        <div class="not-in-stock">
+                                            <p class="text-white">ناموجود</p>
+                                        </div>
+                                    @endif
 
-                                    </div>
-                                    <div class="pro-details-quality">
-                                        <div class="cart-plus-minus">
-                                            <input class="cart-plus-minus-box" type="text" name="qtybutton"
-                                                value="2" />
-                                        </div>
-                                        <div class="pro-details-cart">
-                                            <a href="#">افزودن به سبد خرید</a>
-                                        </div>
-                                        <div class="pro-details-wishlist">
-                                            <a title="Add To Wishlist" href="#"><i class="sli sli-heart"></i></a>
-                                        </div>
-                                        <div class="pro-details-compare">
-                                            <a title="Add To Compare" href="#"><i class="sli sli-refresh"></i></a>
-                                        </div>
-                                    </div>
+
+
+
                                     <div class="pro-details-meta">
                                         <span>دسته بندی :</span>
                                         <ul>
