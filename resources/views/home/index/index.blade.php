@@ -1400,7 +1400,7 @@
                             <div class="col-md-7 col-sm-12 col-xs-12" style="direction: rtl;">
                                 <div class="product-details-content quickview-content">
                                     <h2 class="text-right mb-4">{{ $product->name }}</h2>
-                                    <div class="product-details-price">
+                                    <div class="product-details-price variation-price">
                                         @if ($product->quantity_check)
                                             @if ($product->sale_check)
                                                 <span class="new">
@@ -1451,9 +1451,11 @@
                                         <div class="pro-details-size-color text-right">
                                             <div class="pro-details-size w-50">
                                                 <span>{{ App\Models\ProductAttribute::find($product->productVariations->first()->attribute_id)->name }}</span>
-                                                <select class="form-control" id="">
+                                                <select class="form-control variation-select">
                                                     @foreach ($product->productVariations()->where('quantity', '>', 0)->get() as $variation)
-                                                        <option value="{{ $variation->id }}">{{ $variation->value }}
+                                                        <option
+                                                            value="{{ json_encode($variation->only(['id', 'quantity', 'is_sale', 'sale_price', 'price'])) }}">
+                                                            {{ $variation->value }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -1545,4 +1547,35 @@
         </div>
     @endforeach
     <!-- Modal end -->
+@endsection
+
+
+@section('script')
+    <script>
+        $('.variation-select').on('change', function() {
+            let variation = JSON.parse(this.value);
+            let variationPriceDiv = $('.variation-price');
+            variationPriceDiv.empty();
+
+            if (variation.is_sale) {
+                let spanSale = $('<span />', {
+                    class: 'new',
+                    text: toPersianNum(number_format(variation.sale_price)) + ' تومان'
+                });
+                let spanPrice = $('<span />', {
+                    class: 'old',
+                    text: toPersianNum(number_format(variation.price)) + ' تومان'
+                });
+
+                variationPriceDiv.append(spanSale);
+                variationPriceDiv.append(spanPrice);
+            } else {
+                let spanPrice = $('<span />', {
+                    class: 'new',
+                    text: toPersianNum(number_format(variation.price)) + ' تومان'
+                });
+                variationPriceDiv.append(spanPrice);
+            }
+        });
+    </script>
 @endsection
