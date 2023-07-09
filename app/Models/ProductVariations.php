@@ -14,10 +14,10 @@ class ProductVariations extends Model
         'attribute_id',
         'product_id',
         'value',
-        'price',
+        'price', //قیمت قبل تخفیف
         'quantity',
         'sku',
-        'sale_price',
+        'sale_price', // قیمت بعد از تخفیف
         'date_on_sale_from',
         'date_on_sale_to',
     ];

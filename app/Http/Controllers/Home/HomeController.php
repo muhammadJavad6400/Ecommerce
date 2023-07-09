@@ -22,6 +22,9 @@ class HomeController extends Controller
         // Products
         $products = Product::where('is_active', 1)->get();
         //dd($products);
+
+        // $product = Product::find(4);
+        // dd($product->quantity_check);
         return view('home.index.index', compact('sliders', 'indexTopBanners', 'indexButtonBanners', 'parentCategories', 'products'));
     }
 }
