@@ -87,7 +87,7 @@
             </div>
             <div class="product-tab-list nav pb-60 text-center flex-row-reverse">
                 @foreach ($parentCategories as $parentCategory)
-                    <a class="{{ $loop->first ? 'active' : '' }}" href="#" data-toggle="tab">
+                    <a class="{{ $loop->first ? 'active' : '' }}" href="product-1" data-toggle="tab">
                         <h4>{{ $parentCategory->name }}</h4>
                     </a>
                 @endforeach
@@ -1448,13 +1448,25 @@
                                         </ul>
                                     </div>
                                     @if ($product->quantity_check)
+
+
+
+                                        @php
+                                            if($product->sale_check){
+                                                $variationProductSelected = $product->sale_check;
+                                            }else{
+                                                $variationProductSelected = $product->price_check;
+                                            }
+                                        @endphp
                                         <div class="pro-details-size-color text-right">
                                             <div class="pro-details-size w-50">
                                                 <span>{{ App\Models\ProductAttribute::find($product->productVariations->first()->attribute_id)->name }}</span>
                                                 <select class="form-control variation-select">
                                                     @foreach ($product->productVariations()->where('quantity', '>', 0)->get() as $variation)
                                                         <option
-                                                            value="{{ json_encode($variation->only(['id', 'quantity', 'is_sale', 'sale_price', 'price'])) }}">
+                                                            value="{{ json_encode($variation->only(['id', 'quantity', 'is_sale', 'sale_price', 'price'])) }}"
+                                                            {{ $variationProductSelected->id == $variation->id ? 'selected' : '' }}
+                                                            >
                                                             {{ $variation->value }}
                                                         </option>
                                                     @endforeach
@@ -1464,8 +1476,8 @@
                                         </div>
                                         <div class="pro-details-quality">
                                             <div class="cart-plus-minus">
-                                                <input class="cart-plus-minus-box" type="text" name="qtybutton"
-                                                    value="2" />
+                                                <input class="cart-plus-minus-box quantity-input" type="text" name="qtybutton"
+                                                    value="1"  data-max="5"/>
                                             </div>
                                             <div class="pro-details-cart">
                                                 <a href="#">افزودن به سبد خرید</a>
@@ -1511,31 +1523,29 @@
 
                             <div class="col-md-5 col-sm-12 col-xs-12">
                                 <div class="tab-content quickview-big-img">
-                                    <div id="pro-1" class="tab-pane fade show active">
-                                        <img src="assets/img/product/quickview-l1.svg" alt="" />
+                                    <div id="pro-primary-{{ $product->id }}" class="tab-pane fade show active">
+                                        <img src="{{ url(env('PRODUCT_IMAGES_UPLOAD_PATH'). $product->primary_image) }}" alt="{{ $product->name }}" />
                                     </div>
-                                    <div id="pro-2" class="tab-pane fade">
-                                        <img src="assets/img/product/quickview-l2.svg" alt="" />
+                                    @foreach ($product->images as $image)
+                                    <div id="pro-{{ $image->id }}" class="tab-pane fade">
+                                        <img src="{{ url(env('PRODUCT_IMAGES_UPLOAD_PATH'). $image->image) }}" alt="" />
                                     </div>
-                                    <div id="pro-3" class="tab-pane fade">
-                                        <img src="assets/img/product/quickview-l3.svg" alt="" />
-                                    </div>
-                                    <div id="pro-4" class="tab-pane fade">
-                                        <img src="assets/img/product/quickview-l2.svg" alt="" />
-                                    </div>
+
+                                    @endforeach
+
                                 </div>
                                 <!-- Thumbnail Large Image End -->
                                 <!-- Thumbnail Image End -->
                                 <div class="quickview-wrap mt-15">
                                     <div class="quickview-slide-active owl-carousel nav nav-style-2" role="tablist">
-                                        <a class="active" data-toggle="tab" href="#pro-1"><img
-                                                src="assets/img/product/quickview-s1.svg" alt="" /></a>
-                                        <a data-toggle="tab" href="#pro-2"><img
-                                                src="assets/img/product/quickview-s2.svg" alt="" /></a>
-                                        <a data-toggle="tab" href="#pro-3"><img
-                                                src="assets/img/product/quickview-s3.svg" alt="" /></a>
-                                        <a data-toggle="tab" href="#pro-4"><img
-                                                src="assets/img/product/quickview-s2.svg" alt="" /></a>
+                                        <a class="active" data-toggle="tab" href="#pro-primary-{{ $product->id }}"><img
+                                                src="{{ url(env('PRODUCT_IMAGES_UPLOAD_PATH'). $product->primary_image) }}" alt="{{ $product->name }}" /></a>
+                                        @foreach ($product->images as $image)
+                                        <a data-toggle="tab" href="#pro-{{ $image->id }}"><img
+                                            src="{{ url(env('PRODUCT_IMAGES_UPLOAD_PATH'). $image->image) }}" alt="" /></a>
+
+                                        @endforeach
+
                                     </div>
                                 </div>
                             </div>
@@ -1576,6 +1586,9 @@
                 });
                 variationPriceDiv.append(spanPrice);
             }
+
+            $('.quantity-input').attr('data-max' , variation.quantity);
+            $('.quantity-input').val(1);
         });
     </script>
 @endsection
