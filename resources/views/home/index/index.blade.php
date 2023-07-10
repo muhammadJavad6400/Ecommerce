@@ -87,7 +87,7 @@
             </div>
             <div class="product-tab-list nav pb-60 text-center flex-row-reverse">
                 @foreach ($parentCategories as $parentCategory)
-                    <a class="{{ $loop->first ? 'active' : '' }}" href="product-1" data-toggle="tab">
+                    <a class="{{ $loop->first ? 'active' : '' }}" href="#" data-toggle="tab">
                         <h4>{{ $parentCategory->name }}</h4>
                     </a>
                 @endforeach
@@ -1386,7 +1386,7 @@
                             <div class="col-md-7 col-sm-12 col-xs-12" style="direction: rtl;">
                                 <div class="product-details-content quickview-content">
                                     <h2 class="text-right mb-4">{{ $product->name }}</h2>
-                                    <div class="product-details-price variation-price">
+                                    <div class="product-details-price variation-price-{{ $product->id }}">
                                         @if ($product->quantity_check)
                                             @if ($product->sale_check)
                                                 <span class="new">
@@ -1443,7 +1443,7 @@
                                         <div class="pro-details-size-color text-right">
                                             <div class="pro-details-size w-50">
                                                 <span>{{ App\Models\ProductAttribute::find($product->productVariations->first()->attribute_id)->name }}</span>
-                                                <select class="form-control variation-select">
+                                                <select name="variation" class="form-control variation-select" data-id="{{ $product->id }}">
                                                     @foreach ($product->productVariations()->where('quantity', '>', 0)->get() as $variation)
                                                         <option
                                                             value="{{ json_encode($variation->only(['id', 'quantity', 'is_sale', 'sale_price', 'price'])) }}"
@@ -1457,8 +1457,8 @@
                                         </div>
                                         <div class="pro-details-quality">
                                             <div class="cart-plus-minus">
-                                                <input class="cart-plus-minus-box quantity-input" type="text"
-                                                    name="qtybutton" value="1" data-max="5" />
+                                                <input class="cart-plus-minus-box quantity-input-{{ $product->id }}" type="text"
+                                                    name="qtybutton" value="1" data-max="{{ $product->productVariations()->where('quantity' , '>' , 0)->first()->quantity }}" />
                                             </div>
                                             <div class="pro-details-cart">
                                                 <a href="#">افزودن به سبد خرید</a>
@@ -1547,7 +1547,7 @@
     <script>
         $('.variation-select').on('change', function() {
             let variation = JSON.parse(this.value);
-            let variationPriceDiv = $('.variation-price');
+            let variationPriceDiv = $('.variation-price-' + $(this).data('id'));
             variationPriceDiv.empty();
 
             if (variation.is_sale) {
@@ -1570,8 +1570,8 @@
                 variationPriceDiv.append(spanPrice);
             }
 
-            $('.quantity-input').attr('data-max', variation.quantity);
-            $('.quantity-input').val(1);
+            $('.quantity-input-' + $(this).data('id')).attr('data-max', variation.quantity);
+            $('.quantity-input-' + $(this).data('id')).val(1);
         });
     </script>
 @endsection
