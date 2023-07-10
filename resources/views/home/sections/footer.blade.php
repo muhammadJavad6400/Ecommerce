@@ -3,7 +3,7 @@
         <div class="footer-top text-center pt-45 pb-45">
             <nav>
                 <ul>
-                    <li><a href="index.html">صفحه ای اصلی </a></li>
+                    <li><a href="/">صفحه اصلی</a></li>
                     <li><a href="shop.html">فروشگاه </a></li>
                     <li><a href="contact-us.html">تماس با ما </a></li>
                     <li><a href="about-us.html">ارتباط با ما </a></li>
@@ -29,7 +29,7 @@
                 </div>
                 <div class="col-lg-4 col-md-3 col-12">
                     <div class="payment-mathod pb-20">
-                        <a href="#"><img src="assets/img/icon-img/payment.png" alt="" /></a>
+                        <a href="#"><img src="{{ url('images/home/payment.png') }}" alt="" /></a>
                     </div>
                 </div>
             </div>
