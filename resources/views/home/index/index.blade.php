@@ -164,20 +164,10 @@
 
                                             </div>
                                             <div class="ht-product-ratting-wrap">
-                                                <span class="ht-product-ratting">
-                                                    <span class="ht-product-user-ratting" style="width: 100%;">
-                                                        <i class="sli sli-star"></i>
-                                                        <i class="sli sli-star"></i>
-                                                        <i class="sli sli-star"></i>
-                                                        <i class="sli sli-star"></i>
-                                                        <i class="sli sli-star"></i>
-                                                    </span>
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                </span>
+                                                <div data-rating-stars="5" data-rating-readonly="true"
+                                                    data-rating-value="{{ ceil($product->productRates->avg('rate')) }}"
+                                                    data-rating-input="#dataReadonlyInput">
+                                                </div>
                                             </div>
                                         </div>
 
@@ -1424,13 +1414,12 @@
                                         @endif
                                     </div>
                                     <div class="pro-details-rating-wrap">
-                                        <div class="pro-details-rating">
-                                            <i class="sli sli-star yellow"></i>
-                                            <i class="sli sli-star yellow"></i>
-                                            <i class="sli sli-star yellow"></i>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                        </div>
+
+                                            <div data-rating-stars="5" data-rating-readonly="true"
+                                                data-rating-value="{{ ceil($product->productRates->avg('rate')) }}"
+                                                data-rating-input="#dataReadonlyInput">
+                                            </div>
+                                            <span class="mx-2">|</span>
                                         <span>3 دیدگاه</span>
                                     </div>
                                     <p class="text-right">
@@ -1448,13 +1437,10 @@
                                         </ul>
                                     </div>
                                     @if ($product->quantity_check)
-
-
-
                                         @php
-                                            if($product->sale_check){
+                                            if ($product->sale_check) {
                                                 $variationProductSelected = $product->sale_check;
-                                            }else{
+                                            } else {
                                                 $variationProductSelected = $product->price_check;
                                             }
                                         @endphp
@@ -1465,8 +1451,7 @@
                                                     @foreach ($product->productVariations()->where('quantity', '>', 0)->get() as $variation)
                                                         <option
                                                             value="{{ json_encode($variation->only(['id', 'quantity', 'is_sale', 'sale_price', 'price'])) }}"
-                                                            {{ $variationProductSelected->id == $variation->id ? 'selected' : '' }}
-                                                            >
+                                                            {{ $variationProductSelected->id == $variation->id ? 'selected' : '' }}>
                                                             {{ $variation->value }}
                                                         </option>
                                                     @endforeach
@@ -1476,8 +1461,8 @@
                                         </div>
                                         <div class="pro-details-quality">
                                             <div class="cart-plus-minus">
-                                                <input class="cart-plus-minus-box quantity-input" type="text" name="qtybutton"
-                                                    value="1"  data-max="5"/>
+                                                <input class="cart-plus-minus-box quantity-input" type="text"
+                                                    name="qtybutton" value="1" data-max="5" />
                                             </div>
                                             <div class="pro-details-cart">
                                                 <a href="#">افزودن به سبد خرید</a>
@@ -1524,13 +1509,14 @@
                             <div class="col-md-5 col-sm-12 col-xs-12">
                                 <div class="tab-content quickview-big-img">
                                     <div id="pro-primary-{{ $product->id }}" class="tab-pane fade show active">
-                                        <img src="{{ url(env('PRODUCT_IMAGES_UPLOAD_PATH'). $product->primary_image) }}" alt="{{ $product->name }}" />
+                                        <img src="{{ url(env('PRODUCT_IMAGES_UPLOAD_PATH') . $product->primary_image) }}"
+                                            alt="{{ $product->name }}" />
                                     </div>
                                     @foreach ($product->images as $image)
-                                    <div id="pro-{{ $image->id }}" class="tab-pane fade">
-                                        <img src="{{ url(env('PRODUCT_IMAGES_UPLOAD_PATH'). $image->image) }}" alt="" />
-                                    </div>
-
+                                        <div id="pro-{{ $image->id }}" class="tab-pane fade">
+                                            <img src="{{ url(env('PRODUCT_IMAGES_UPLOAD_PATH') . $image->image) }}"
+                                                alt="" />
+                                        </div>
                                     @endforeach
 
                                 </div>
@@ -1539,11 +1525,12 @@
                                 <div class="quickview-wrap mt-15">
                                     <div class="quickview-slide-active owl-carousel nav nav-style-2" role="tablist">
                                         <a class="active" data-toggle="tab" href="#pro-primary-{{ $product->id }}"><img
-                                                src="{{ url(env('PRODUCT_IMAGES_UPLOAD_PATH'). $product->primary_image) }}" alt="{{ $product->name }}" /></a>
+                                                src="{{ url(env('PRODUCT_IMAGES_UPLOAD_PATH') . $product->primary_image) }}"
+                                                alt="{{ $product->name }}" /></a>
                                         @foreach ($product->images as $image)
-                                        <a data-toggle="tab" href="#pro-{{ $image->id }}"><img
-                                            src="{{ url(env('PRODUCT_IMAGES_UPLOAD_PATH'). $image->image) }}" alt="" /></a>
-
+                                            <a data-toggle="tab" href="#pro-{{ $image->id }}"><img
+                                                    src="{{ url(env('PRODUCT_IMAGES_UPLOAD_PATH') . $image->image) }}"
+                                                    alt="" /></a>
                                         @endforeach
 
                                     </div>
@@ -1587,7 +1574,7 @@
                 variationPriceDiv.append(spanPrice);
             }
 
-            $('.quantity-input').attr('data-max' , variation.quantity);
+            $('.quantity-input').attr('data-max', variation.quantity);
             $('.quantity-input').val(1);
         });
     </script>

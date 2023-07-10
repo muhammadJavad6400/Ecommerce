@@ -95,4 +95,9 @@ class Product extends Model
     {
         return $this->hasMany(ProductImage::class);
     }
+
+    public function productRates()
+    {
+        return $this->hasMany(ProductRate::class);
+    }
 }
