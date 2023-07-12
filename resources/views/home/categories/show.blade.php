@@ -40,103 +40,56 @@
                             <h4 class="pro-sidebar-title"> دسته بندی </h4>
                             <div class="sidebar-widget-list mt-30">
                                 <ul>
-                                    <li>
-                                        مردانه
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            پیراهن
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            تی شرت
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            پالتو
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            لباس راحتی
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            لباس راحتی
-                                        </a>
-                                    </li>
+                                    {{ $category->parent->name }}
+                                    @foreach ($category->parent->children as $childCategory)
+                                        <li>
+                                            <a href="{{ route('home.categories.show', ['category' => $childCategory->slug]) }}"
+                                                style="{{ $childCategory->slug == $category->slug ? 'color: #ff3535' : '' }}">
+                                                {{ $childCategory->name }}
+                                            </a>
+                                        </li>
+                                    @endforeach
+
                                 </ul>
                             </div>
                         </div>
                         <hr>
-
+                        @foreach ($attirbutesCategory as $attribute)
+                            <div class="sidebar-widget mt-30">
+                                <h4 class="pro-sidebar-title">{{ $attribute->name }}</h4>
+                                <div class="sidebar-widget-list mt-20">
+                                    <ul>
+                                        @foreach ($attribute->attributeValues as $attributeValue)
+                                            <li>
+                                                <div class="sidebar-widget-list-left">
+                                                    <input type="checkbox" value=""> <a
+                                                        href="#">{{ $attributeValue->value }}</a>
+                                                    <span class="checkmark"></span>
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                            <hr>
+                        @endforeach
                         <div class="sidebar-widget mt-30">
-                            <h4 class="pro-sidebar-title">رنگ </h4>
+                            <h4 class="pro-sidebar-title">{{ $variationsCategory->name }}</h4>
                             <div class="sidebar-widget-list mt-20">
                                 <ul>
-                                    <li>
-                                        <div class="sidebar-widget-list-left">
-                                            <input type="checkbox" value=""> <a href="#">سبز </a>
-                                            <span class="checkmark"></span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="sidebar-widget-list-left">
-                                            <input type="checkbox" value=""> <a href="#">کرم </a>
-                                            <span class="checkmark"></span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="sidebar-widget-list-left">
-                                            <input type="checkbox" value=""> <a href="#">آبی </a>
-                                            <span class="checkmark"></span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="sidebar-widget-list-left">
-                                            <input type="checkbox" value=""> <a href="#">مشکی </a>
-                                            <span class="checkmark"></span>
-                                        </div>
-                                    </li>
+                                    @foreach ($variationsCategory->variationValues as $variationValue)
+                                        <li>
+                                            <div class="sidebar-widget-list-left">
+                                                <input type="checkbox" value=""> <a
+                                                    href="#">{{ $variationValue->value }}</a>
+                                                <span class="checkmark"></span>
+                                            </div>
+                                        </li>
+                                    @endforeach
+
                                 </ul>
                             </div>
                         </div>
-                        <hr>
-                        <div class="sidebar-widget mt-30">
-                            <h4 class="pro-sidebar-title">سایز </h4>
-                            <div class="sidebar-widget-list mt-20">
-                                <ul>
-                                    <li>
-                                        <div class="sidebar-widget-list-left">
-                                            <input type="checkbox" value=""> <a href="#">XL </a>
-                                            <span class="checkmark"></span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="sidebar-widget-list-left">
-                                            <input type="checkbox" value=""> <a href="#">L </a>
-                                            <span class="checkmark"></span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="sidebar-widget-list-left">
-                                            <input type="checkbox" value=""> <a href="#">SM </a>
-                                            <span class="checkmark"></span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="sidebar-widget-list-left">
-                                            <input type="checkbox" value=""> <a href="#">XXL </a>
-                                            <span class="checkmark"></span>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
 

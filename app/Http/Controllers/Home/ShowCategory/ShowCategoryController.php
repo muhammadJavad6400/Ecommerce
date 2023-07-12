@@ -14,7 +14,7 @@ class ShowCategoryController extends Controller
         $variationsCategory = $category->attributes()->where('is_variation', 1)->with('variationValues')->first();
 
         //dd($variationsCategory);
-        return view('home.categories.show', compact('attirbutesCategory', 'variationsCategory'));
+        return view('home.categories.show', compact('category','attirbutesCategory', 'variationsCategory'));
 
     }
 }
