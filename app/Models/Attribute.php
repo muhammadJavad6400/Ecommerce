@@ -19,4 +19,14 @@ class Attribute extends Model
     {
         return $this->belongsToMany(Category::class , 'attribute_category');
     }
+
+    public function attributeValues()
+    {
+        return $this->hasMany(ProductAttribute::class)->select('attribute_id', 'value')->distinct();
+    }
+
+    public function variationValues()
+    {
+        return $this->hasMany(ProductVariations::class)->select('attribute_id', 'value')->distinct();
+    }
 }
