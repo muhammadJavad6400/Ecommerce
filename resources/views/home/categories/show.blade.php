@@ -17,6 +17,7 @@
             </div>
         </div>
     </div>
+
     <form id="filter-form">
         <div class="shop-area pt-95 pb-100">
             <div class="container">
@@ -62,7 +63,8 @@
                                             @foreach ($attribute->attributeValues as $attributeValue)
                                                 <li>
                                                     <div class="sidebar-widget-list-left">
-                                                        <input type="checkbox" name="attribute[{{ $attribute->id }}]" value="{{ $attributeValue->value }}" onchange="filter()"> <a
+                                                        <input type="checkbox" name="attribute[{{ $attribute->id }}]"
+                                                            value="{{ $attributeValue->value }}" onchange="filter()"> <a
                                                             href="#">{{ $attributeValue->value }}</a>
                                                         <span class="checkmark"></span>
                                                     </div>
@@ -80,8 +82,10 @@
                                         @foreach ($variationsCategory->variationValues as $variationValue)
                                             <li>
                                                 <div class="sidebar-widget-list-left">
-                                                    <input type="checkbox" name="variation" value="{{ $variationValue->value }}" onchange="filter()"> <a
-                                                        href="#">{{ $variationValue->value }}</a>
+                                                    <input class="variation" type="checkbox"
+                                                        value="{{ $variationValue->value }}" onchange="filter()"
+                                                        {{ request()->has('variation') && in_array($variationValue->value, explode('-', request('variation'))) ? 'checked' : '' }}>
+                                                    <a href="#">{{ $variationValue->value }}</a>
                                                     <span class="checkmark"></span>
                                                 </div>
                                             </li>
@@ -842,6 +846,7 @@
                     </div>
 
                 </div>
+                <input id="filter-variation" type="hidden" name="variation">
             </div>
         </div>
     </form>
@@ -981,12 +986,19 @@
 
 
 @section('script')
-
     <script>
         function filter() {
-            $('#filter-form').submit()
-            //console.log('salam');
+
+            let variation = $('.variation:checked').map(function() {
+                return this.value
+            }).get().join('-');
+            if (variation == "") {
+                $('#filter-variation').prop('disabled', true)
+            } else {
+                $('#filter-variation').val(variation)
+            }
+
+            $('#filter-form').submit();
         }
     </script>
-
 @endsection
