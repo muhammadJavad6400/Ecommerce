@@ -10,11 +10,11 @@ class ShowCategoryController extends Controller
 {
     public function show(Category $category)
     {
-        $attirbutesCategory = $category->attributes()->where('is_filter', 1)->with('attributeValues')->get();
-        $variationsCategory = $category->attributes()->where('is_variation', 1)->with('variationValues')->first();
+        $attributesCategory = $category->attributes()->where('is_filter', 1)->with('attributeValues')->get();
+        $variationCategory = $category->attributes()->where('is_variation', 1)->with('variationValues')->first();
 
         //dd($variationsCategory);
-        return view('home.categories.show', compact('category','attirbutesCategory', 'variationsCategory'));
+        return view('home.categories.show', compact('category','attributesCategory', 'variationCategory'));
 
     }
 }
