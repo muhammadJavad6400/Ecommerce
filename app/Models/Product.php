@@ -28,7 +28,7 @@ class Product extends Model
     protected $appends = [
         'quantity_check',
         'sale_check',  // چک کردن قمیت و بازه تخفیف
-        'price_check',// چک کردن کمترین قیمت فروش
+        'price_check', // چک کردن کمترین قیمت فروش
     ];
 
     public function sluggable(): array
@@ -60,9 +60,27 @@ class Product extends Model
         return $is_active ? 'فعال' : 'غیرفعال';
     }
 
+    public function scopeFilter($query)
+    {
+        if (request()->has('variation')) {
+            $query->whereHas('productVariations', function ($query) {
+                foreach (explode('-', request()->variation) as $index => $variation) {
+                    if($index == 0){
+                        $query->where('value', 'variation');
+                    }else{
+                        $query->orWhere('value', 'variation');
+                    }
+
+                }
+            });
+        }
+        dd($query->toSql());
+        return $query;
+    }
+
     public function tags()
     {
-        return $this->belongsToMany(Tag::class , 'product_tag');
+        return $this->belongsToMany(Tag::class, 'product_tag');
     }
 
     public function brand()
