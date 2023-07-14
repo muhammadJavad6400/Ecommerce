@@ -66,9 +66,9 @@ class Product extends Model
             $query->whereHas('productVariations', function ($query) {
                 foreach (explode('-', request()->variation) as $index => $variation) {
                     if($index == 0){
-                        $query->where('value', 'variation');
+                        $query->where('value', $variation);
                     }else{
-                        $query->orWhere('value', 'variation');
+                        $query->orWhere('value', $variation);
                     }
 
                 }
