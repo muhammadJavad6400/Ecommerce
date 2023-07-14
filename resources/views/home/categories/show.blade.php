@@ -63,8 +63,10 @@
                                             @foreach ($attribute->attributeValues as $attributeValue)
                                                 <li>
                                                     <div class="sidebar-widget-list-left">
-                                                        <input type="checkbox" name="attribute[{{ $attribute->id }}]"
-                                                            value="{{ $attributeValue->value }}" onchange="filter()"> <a
+                                                        <input type="checkbox" class="attribute-{{ $attribute->id }}"
+                                                            value="{{ $attributeValue->value }}"
+                                                            {{ request()->has('attribute.' . $attribute->id) && in_array($attributeValue->value, explode('-', request()->attribute[$attribute->id])) ? 'checked' : '' }}
+                                                            onchange="filter()"> <a
                                                             href="#">{{ $attributeValue->value }}</a>
                                                         <span class="checkmark"></span>
                                                     </div>
@@ -846,6 +848,10 @@
                     </div>
 
                 </div>
+                @foreach ($attirbutesCategory as $attribute)
+                    <input id="filter-attribute-{{ $attribute->id }}" type="hidden"
+                        name="attribute[{{ $attribute->id }}]">
+                @endforeach
                 <input id="filter-variation" type="hidden" name="variation">
             </div>
         </div>
@@ -989,6 +995,19 @@
     <script>
         function filter() {
 
+            let attributes = @json($attirbutesCategory);
+            attributes.map(attribute => {
+                let valueAttribute = $(`.attribute-${attribute.id}:checked`).map(function() {
+                    return this.value
+                }).get().join('-');
+                if (valueAttribute == "") {
+                    $(`#filter-attribute-${attribute.id}`).prop('disabled', true)
+                } else {
+                    $(`#filter-attribute-${attribute.id}`).val(valueAttribute)
+                }
+
+            });
+
             let variation = $('.variation:checked').map(function() {
                 return this.value
             }).get().join('-');
@@ -1000,5 +1019,12 @@
 
             $('#filter-form').submit();
         }
+
+        $('#filter-form').on('submit' , function(event){
+            event.preventDefault();
+            let currentUrl = '{{ url()->current() }}';
+            let url = currentUrl + '?' + decodeURIComponent($(this).serialize())
+            $(location).attr('href' , url);
+        });
     </script>
 @endsection
