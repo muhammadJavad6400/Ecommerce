@@ -62,19 +62,33 @@ class Product extends Model
 
     public function scopeFilter($query)
     {
+        if (request()->has('attribute')) {
+            foreach (request()->attribute as $attribute) {
+                $query->whereHas('productAttributes', function ($query) use ($attribute) {
+                    foreach (explode('-', $attribute) as $index => $attribute) {
+                        if ($index == 0) {
+                            $query->where('value', $attribute);
+                        } else {
+                            $query->orWhere('value', $attribute);
+                        }
+                    }
+                });
+            }
+        }
+
+
         if (request()->has('variation')) {
             $query->whereHas('productVariations', function ($query) {
                 foreach (explode('-', request()->variation) as $index => $variation) {
-                    if($index == 0){
+                    if ($index == 0) {
                         $query->where('value', $variation);
-                    }else{
+                    } else {
                         $query->orWhere('value', $variation);
                     }
-
                 }
             });
         }
-        dd($query->toSql());
+        //dd($query->toSql());
         return $query;
     }
 

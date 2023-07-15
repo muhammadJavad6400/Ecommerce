@@ -17,8 +17,8 @@ class ShowCategoryController extends Controller
 
         $productsCategory = $category->products()->filter()->get();
 
-        dd($productsCategory);
-        return view('home.categories.show', compact('category','attributesCategory', 'variationCategory'));
+        //dd($productsCategory);
+        return view('home.categories.show', compact('category','attributesCategory', 'variationCategory', 'productsCategory'));
 
     }
 }
