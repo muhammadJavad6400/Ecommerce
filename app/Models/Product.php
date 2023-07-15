@@ -114,6 +114,17 @@ class Product extends Model
         return $query;
     }
 
+    public function scopeSearch($query)
+    {
+        $keyWord = request()->search;
+        if(request()->has('search') && trim($keyWord) != ''){
+            $query->where('name', 'LIKE', '%'. trim($keyWord). '%');
+        }
+
+        return $query;
+
+    }
+
     public function tags()
     {
         return $this->belongsToMany(Tag::class, 'product_tag');
