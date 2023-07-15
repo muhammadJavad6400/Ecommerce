@@ -88,6 +88,28 @@ class Product extends Model
                 }
             });
         }
+
+        if (request()->has('sortBy')) {
+            $sortBy = request()->sortBy;
+            switch ($sortBy) {
+                case 'max':
+                    $query->orderByDesc(productVariations::select('price')->whereColumn('product_variations.product_id', 'products.id')->orderBy('sale_price', 'desc')->take(1));
+                    break;
+                case 'min':
+                    $query->orderBy(productVariations::select('price')->whereColumn('product_variations.product_id', 'products.id')->orderBy('sale_price', 'asc')->take(1));
+                    break;
+                case 'latest':
+                    $query->latest();
+                    break;
+                case 'oldest':
+                    $query->oldest();
+                    break;
+
+                default:
+                    $query;
+                    break;
+            }
+        }
         //dd($query->toSql());
         return $query;
     }
