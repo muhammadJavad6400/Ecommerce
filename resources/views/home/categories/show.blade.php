@@ -217,13 +217,8 @@
                             </div>
                         </div>
 
-                        <div class="pro-pagination-style text-center mt-30">
-                            <ul class="d-flex justify-content-center">
-                                <li><a class="prev" href="#"><i class="sli sli-arrow-left"></i></a></li>
-                                <li><a class="active" href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a class="next" href="#"><i class="sli sli-arrow-right"></i></a></li>
-                            </ul>
+                        <div id="pagination" class="pro-pagination-style text-center mt-30">
+                            {{ $productsCategory->withQueryString()->links() }}
                         </div>
 
                     </div>
@@ -494,6 +489,15 @@
 
             $('.quantity-input-' + $(this).data('id')).attr('data-max', variation.quantity);
             $('.quantity-input-' + $(this).data('id')).val(1);
+
+        });
+
+
+        $('#pagination li a').map(function() {
+            let decodeUrl = decodeURIComponent($(this).attr('href'));
+            if ($(this).attr('href') !== undefined) {
+                $(this).attr('href', decodeUrl);
+            }
         });
     </script>
 @endsection
