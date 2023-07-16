@@ -15,7 +15,7 @@ class ShowCategoryController extends Controller
         $variationCategory = $category->attributes()->where('is_variation', 1)->with('variationValues')->first();
 
 
-        $productsCategory = $category->products()->filter()->search()->paginate(1);
+        $productsCategory = $category->products()->filter()->search()->paginate(9);
 
         //dd($productsCategory);
         return view('home.categories.show', compact('category','attributesCategory', 'variationCategory', 'productsCategory'));
