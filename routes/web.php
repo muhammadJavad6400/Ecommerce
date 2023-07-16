@@ -55,3 +55,10 @@ Route::prefix('admin-panel/management')->name('admin.')->group(function() {
 Route::get('/' , [HomeController::class , 'index'])->name('home.index');
 Route::get('categories/{category:slug}', [ShowCategoryController::class, 'show'])->name('home.categories.show');
 Route::get('products/{product:slug}', [ShowSingleProductController::class, 'show'])->name('home.single.product.show');
+
+
+Route::get('/test', function(){
+    auth()->logout();
+    return 'logout';
+
+});

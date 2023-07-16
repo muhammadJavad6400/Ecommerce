@@ -12,7 +12,7 @@
             <div class="breadcrumb-content text-center">
                 <ul>
                     <li>
-                        <a href="{{ route('home.index') }}">صفحه  اصلی</a>
+                        <a href="{{ route('home.index') }}">صفحه اصلی</a>
                     </li>
                     <li class="active"> ورود </li>
                 </ul>
@@ -35,11 +35,35 @@
                             <div id="lg2" class="tab-pane active">
                                 <div class="login-form-container">
                                     <div class="login-register-form">
-                                        <form action="#" method="post">
-                                            <input name="name" placeholder="نام" type="email">
-                                            <input name="user-email" placeholder="ایمیل" type="email">
-                                            <input type="password" name="user-password" placeholder="رمز عبور">
-                                            <input type="text" name="user-name" placeholder="تکرار رمز عبور">
+                                        <form action="{{ route('register') }}" method="post">
+                                            @csrf
+                                            <input name="name" placeholder="نام" type="text"
+                                                class="@error('name') mb-1 @enderror" value="{{ old('name') }}">
+                                            @error('name')
+                                                <div class="input-error-validation">
+                                                    <strong>{{ $message }}</strong>
+                                                </div>
+                                            @enderror
+                                            <input name="email" placeholder="ایمیل" type="email" class="@error('email') mb-1 @enderror"
+                                                value="{{ old('email') }}">
+                                            @error('email')
+                                                <div class="input-error-validation">
+                                                    <strong>{{ $message }}</strong>
+                                                </div>
+                                            @enderror
+                                            <input type="password" name="password" placeholder="رمز عبور" class="@error('password') mb-1 @enderror">
+                                            @error('password')
+                                                <div class="input-error-validation">
+                                                    <strong>{{ $message }}</strong>
+                                                </div>
+                                            @enderror
+                                            <input type="password" name="password_confirmation" placeholder="تکرار رمز عبور" class="@error('password_confirmation') mb-1 @enderror">
+                                            @error('password_confirmation')
+                                                <div class="input-error-validation">
+                                                    <strong>{{ $message }}</strong>
+                                                </div>
+                                            @enderror
+
                                             <div class="button-box">
                                                 <button type="submit">عضویت</button>
                                                 <a href="index.html" class="btn btn-google btn-block mt-4">
