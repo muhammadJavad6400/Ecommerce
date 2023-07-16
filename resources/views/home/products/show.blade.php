@@ -136,31 +136,27 @@
                 <div class="col-lg-6 col-md-6 order-1 order-sm-1 order-md-2">
                     <div class="product-details-img">
                         <div class="zoompro-border zoompro-span">
-                            <img class="zoompro" src="assets/img/product/product-1.svg"
-                                data-zoom-image="assets/img/product-details/product-detalis-bl1.jpg" alt="" />
+                            <img class="zoompro"
+                                src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $product->primary_image) }}"
+                                data-zoom-image="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $product->primary_image) }}"
+                                alt="" />
 
                         </div>
                         <div id="gallery" class="mt-20 product-dec-slider">
-                            <a data-image="assets/img/product/product-1.svg"
-                                data-zoom-image="assets/img/product-details/product-detalis-bl1.jpg">
-                                <img src="assets/img/product/product-1.svg" alt="">
+                            <a data-image="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $product->primary_image) }}"
+                                data-zoom-image="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $product->primary_image) }}">
+                                <img width="90"
+                                    src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $product->primary_image) }}"
+                                    alt="">
                             </a>
-                            <a data-image="assets/img/product/product-2.svg"
-                                data-zoom-image="assets/img/product-details/product-detalis-bl2.jpg">
-                                <img src="assets/img/product/product-2.svg" alt="">
-                            </a>
-                            <a data-image="assets/img/product/product-3.svg"
-                                data-zoom-image="assets/img/product-details/product-detalis-bl3.jpg">
-                                <img src="assets/img/product/product-3.svg" alt="">
-                            </a>
-                            <a data-image="assets/img/product/product-4.svg"
-                                data-zoom-image="assets/img/product-details/product-detalis-bl4.jpg">
-                                <img src="assets/img/product/product-4.svg" alt="">
-                            </a>
-                            <a data-image="assets/img/product/product-5.svg"
-                                data-zoom-image="assets/img/product-details/product-detalis-bl5.jpg">
-                                <img src="assets/img/product/product-5.svg" alt="">
-                            </a>
+                            @foreach ($product->images as $image)
+                                <a data-image="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $image->image) }}"
+                                    data-zoom-image="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $image->image) }}">
+                                    <img width="90"
+                                        src="{{ asset(env('PRODUCT_IMAGES_UPLOAD_PATH') . $image->image) }}"
+                                        alt="">
+                                </a>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -184,33 +180,19 @@
                         </div>
                         <div class="tab-content description-review-bottom">
                             <div id="des-details1" class="tab-pane active">
-                                <div class="product-description-wrapper">
-                                    <p class="text-justify">
-                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از
-                                        طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که
-                                        لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود
-                                        ابزارهای کاربردی می‌باشد.
-                                    </p>
-                                    <p class="text-justify">
-                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از
-                                        طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که
-                                        لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود
-                                        ابزارهای کاربردی می‌باشد.
-                                    </p>
+                                <div class="product-description-wrapper text-right">
+                                    {{ $product->description }}
                                 </div>
                             </div>
                             <div id="des-details3" class="tab-pane">
                                 <div class="product-anotherinfo-wrapper text-right">
                                     <ul>
-                                        <li>
-                                            <span> وزن : </span>
-                                            400 g
-                                        </li>
-                                        <li><span> ابعاد : </span>10 x 10 x 15 cm </li>
-                                        <li><span> مواد بکار رفته : </span> 60% cotton, 40% polyester</li>
-                                        <li><span> اطلاعات دیگر : </span>
-                                            لورم ایپسوم متن ساختگی با تولید سادگی
-                                        </li>
+                                        @foreach ($product->productAttributes()->with('attribute')->get() as $attribute)
+                                            <li>
+                                                <span> {{ $attribute->attribute->name }} : </span>
+                                                {{ $attribute->value }}
+                                            </li>
+                                        @endforeach
                                     </ul>
                                 </div>
                             </div>
@@ -348,7 +330,7 @@
                 </div>
                 <div class="col-lg-4 col-md-4">
                     <div class="pro-dec-banner">
-                        <a href="#"><img src="assets/img/banner/banner-7.png" alt=""></a>
+                        <a href="#"><img src="{{ asset('images/home/banner-7.png') }}" alt=""></a>
                     </div>
                 </div>
             </div>
