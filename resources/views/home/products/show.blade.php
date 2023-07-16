@@ -373,11 +373,7 @@
                                                     class="ht-product-action-tooltip"> مقایسه
                                                 </span></a>
                                         </li>
-                                        <li>
-                                            <a href="#"><i class="sli sli-bag"></i><span
-                                                    class="ht-product-action-tooltip"> افزودن به سبد
-                                                    خرید </span></a>
-                                        </li>
+
                                     </ul>
                                 </div>
                             </div>
