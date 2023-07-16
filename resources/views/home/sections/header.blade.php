@@ -28,11 +28,14 @@
                                     <ul class="mega-menu">
                                         @foreach ($parentCategories as $parentCategory)
                                             <li>
-                                                <a class="menu-title" href="{{ route('home.categories.show', ['category' => $parentCategory->slug]) }}">{{ $parentCategory->name }}</a>
+                                                <a class="menu-title"
+                                                    href="{{ route('home.categories.show', ['category' => $parentCategory->slug]) }}">{{ $parentCategory->name }}</a>
 
                                                 <ul>
                                                     @foreach ($parentCategory->children as $childCategory)
-                                                        <li><a href="{{ route('home.categories.show', ['category' => $childCategory->slug]) }}">{{ $childCategory->name }}</a></li>
+                                                        <li><a
+                                                                href="{{ route('home.categories.show', ['category' => $childCategory->slug]) }}">{{ $childCategory->name }}</a>
+                                                        </li>
                                                     @endforeach
                                                 </ul>
                                             </li>
@@ -128,11 +131,14 @@
                             </button>
                             <div class="setting-content">
                                 <ul class="text-right">
-                                    <li><a href="{{ route('login') }}">ورود</a></li>
-                                    <li>
-                                        <a href="{{ route('register') }}">ایجاد حساب</a>
-                                    </li>
-                                    <li><a href="my-account.html">پروفایل</a></li>
+                                    @auth
+                                        <li><a href="my-account.html">پروفایل</a></li>
+                                    @else
+                                        <li><a href="{{ route('login') }}">ورود</a></li>
+                                        <li>
+                                            <a href="{{ route('register') }}">ایجاد حساب</a>
+                                        </li>
+                                    @endauth
                                 </ul>
                             </div>
                         </div>

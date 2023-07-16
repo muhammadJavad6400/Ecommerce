@@ -8,8 +8,8 @@ use App\Http\Controllers\Admin\Product\ProductController as AdminProductControll
 use App\Http\Controllers\Admin\Product\ProductImage\ProductImageController as AdminProductImageController;
 use App\Http\Controllers\Admin\Tag\TagController as AdminTagController;
 use App\Http\Controllers\Home\HomeController;
-use App\Http\Controllers\Home\ShowCategory\ShowCategoryController;
-use App\Http\Controllers\Home\ShowSingleProduct\ShowSingleProductController;
+use App\Http\Controllers\Home\ShowCategory\ShowCategoryController as HomeShowCategoryController;
+use App\Http\Controllers\Home\ShowSingleProduct\ShowSingleProductController as HomeShowSingleProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -53,8 +53,8 @@ Route::prefix('admin-panel/management')->name('admin.')->group(function() {
 });
 
 Route::get('/' , [HomeController::class , 'index'])->name('home.index');
-Route::get('categories/{category:slug}', [ShowCategoryController::class, 'show'])->name('home.categories.show');
-Route::get('products/{product:slug}', [ShowSingleProductController::class, 'show'])->name('home.single.product.show');
+Route::get('categories/{category:slug}', [HomeShowCategoryController::class, 'show'])->name('home.categories.show');
+Route::get('products/{product:slug}', [HomeShowSingleProductController::class, 'show'])->name('home.single.product.show');
 
 
 Route::get('/test', function(){

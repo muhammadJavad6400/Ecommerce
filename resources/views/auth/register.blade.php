@@ -44,20 +44,22 @@
                                                     <strong>{{ $message }}</strong>
                                                 </div>
                                             @enderror
-                                            <input name="email" placeholder="ایمیل" type="email" class="@error('email') mb-1 @enderror"
-                                                value="{{ old('email') }}">
+                                            <input name="email" placeholder="ایمیل" type="email"
+                                                class="@error('email') mb-1 @enderror" value="{{ old('email') }}">
                                             @error('email')
                                                 <div class="input-error-validation">
                                                     <strong>{{ $message }}</strong>
                                                 </div>
                                             @enderror
-                                            <input type="password" name="password" placeholder="رمز عبور" class="@error('password') mb-1 @enderror">
+                                            <input type="password" name="password" placeholder="رمز عبور"
+                                                class="@error('password') mb-1 @enderror">
                                             @error('password')
                                                 <div class="input-error-validation">
                                                     <strong>{{ $message }}</strong>
                                                 </div>
                                             @enderror
-                                            <input type="password" name="password_confirmation" placeholder="تکرار رمز عبور" class="@error('password_confirmation') mb-1 @enderror">
+                                            <input type="password" name="password_confirmation" placeholder="تکرار رمز عبور"
+                                                class="@error('password_confirmation') mb-1 @enderror">
                                             @error('password_confirmation')
                                                 <div class="input-error-validation">
                                                     <strong>{{ $message }}</strong>
