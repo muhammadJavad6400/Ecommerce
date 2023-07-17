@@ -12,6 +12,7 @@
         "laravel/fortify": "^1.17",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.2",
+        "laravel/socialite": "^5.8",
         "laravel/tinker": "^2.8",
         "realrashid/sweet-alert": "^7.0"
     },
