@@ -62,6 +62,9 @@ Route::get('products/{product:slug}', [HomeShowSingleProductController::class, '
 // OAuth Route
 // This Route Redirect To Provider
 Route::get('login/{provider}', [OAuthAuthenticationController::class, 'redirectToProvider'])->name('provider.login');
+// Response To Request From Google
+Route::get('login/{provider}/callback', [OAuthAuthenticationController::class, 'handleproviderCallback']);
+
 
 
 Route::get('/test', function(){
