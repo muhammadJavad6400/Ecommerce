@@ -12,6 +12,7 @@ use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Home\ShowCategory\ShowCategoryController as HomeShowCategoryController;
 use App\Http\Controllers\Home\ShowSingleProduct\ShowSingleProductController as HomeShowSingleProductController;
 use Illuminate\Support\Facades\Route;
+use Ghasedak\Laravel\GhasedakFacade;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +30,7 @@ Route::get('/admin-panel/dashboard', function () {
 })->name('dashboard');
 
 // Admin Panel Route
-Route::prefix('admin-panel/management')->name('admin.')->group(function() {
+Route::prefix('admin-panel/management')->name('admin.')->group(function () {
 
     Route::resource('brands', AdminBrandController::class);
     Route::resource('attributes', AdminAttributeController::class);
@@ -45,16 +46,15 @@ Route::prefix('admin-panel/management')->name('admin.')->group(function() {
     Route::get('/products/{product}/images-edit', [AdminProductImageController::class, 'updateproductImages'])->name('products.images.edit');
     Route::delete('/products/{product}/images-destroy', [AdminProductImageController::class, 'destroyProductImages'])->name('products.images.destroy');
     Route::put('/products/{product}/images-set-primary', [AdminProductImageController::class, 'setPrimaryProductImage'])->name('products.images.set.primary');
-    Route::post('/products/{product}/images-add' ,[AdminProductImageController::class , 'addProductImages'])->name('products.images.add');
+    Route::post('/products/{product}/images-add', [AdminProductImageController::class, 'addProductImages'])->name('products.images.add');
 
     // Edit product Category
     Route::get('/products/{product}/edit-product-category', [AdminProductController::class, 'editProductCategory'])->name('products.category.edit');
     Route::put('/products/{product}/update-product-category', [AdminProductController::class, 'updateProductCategory'])->name('products.category.update');
-
 });
 
 // Home Page Route
-Route::get('/' , [HomeController::class , 'index'])->name('home.index');
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('categories/{category:slug}', [HomeShowCategoryController::class, 'show'])->name('home.categories.show');
 Route::get('products/{product:slug}', [HomeShowSingleProductController::class, 'show'])->name('home.single.product.show');
 
@@ -67,8 +67,11 @@ Route::get('login/{provider}/callback', [OAuthAuthenticationController::class, '
 
 
 
-Route::get('/test', function(){
-    auth()->logout();
-    return 'logout';
+Route::get('/test', function () {
+    $receptor = "09381569004";
+    $type = Ghasedak\Laravel\GhasedakFacade::VERIFY_MESSAGE_TEXT;
+    $template = "test";
+    $param1 = '123456';
 
+    $response = Ghasedak\Laravel\GhasedakFacade::setVerifyType($type)->Verify($receptor, $template, $param1);
 });
