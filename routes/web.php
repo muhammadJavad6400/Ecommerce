@@ -11,8 +11,10 @@ use App\Http\Controllers\Auth\OAuthAuthenticationController;
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Home\ShowCategory\ShowCategoryController as HomeShowCategoryController;
 use App\Http\Controllers\Home\ShowSingleProduct\ShowSingleProductController as HomeShowSingleProductController;
+use App\Models\User;
+use App\Notifications\OTPSms;
 use Illuminate\Support\Facades\Route;
-use Ghasedak\Laravel\GhasedakFacade;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -68,10 +70,6 @@ Route::get('login/{provider}/callback', [OAuthAuthenticationController::class, '
 
 
 Route::get('/test', function () {
-    $receptor = "09381569004";
-    $type = Ghasedak\Laravel\GhasedakFacade::VERIFY_MESSAGE_TEXT;
-    $template = "test";
-    $param1 = '123456';
-
-    $response = Ghasedak\Laravel\GhasedakFacade::setVerifyType($type)->Verify($receptor, $template, $param1);
+    $user = User::find(1);
+    $user->notify(new OTPSms(12345));
 });
