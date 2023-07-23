@@ -7,7 +7,7 @@ use App\Http\Controllers\Admin\Category\CategoryController as AdminCategoryContr
 use App\Http\Controllers\Admin\Product\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\Product\ProductImage\ProductImageController as AdminProductImageController;
 use App\Http\Controllers\Admin\Tag\TagController as AdminTagController;
-use App\Http\Controllers\Auth\OAuthAuthenticationController;
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Home\ShowCategory\ShowCategoryController as HomeShowCategoryController;
 use App\Http\Controllers\Home\ShowSingleProduct\ShowSingleProductController as HomeShowSingleProductController;
@@ -60,12 +60,17 @@ Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('categories/{category:slug}', [HomeShowCategoryController::class, 'show'])->name('home.categories.show');
 Route::get('products/{product:slug}', [HomeShowSingleProductController::class, 'show'])->name('home.single.product.show');
 
+/*
+ OAuth Route
+ This Route Redirect To Provider
+Route::get('login/{provider}', [AuthController::class, 'redirectToProvider'])->name('provider.login');
+ Response To Request From Google
+Route::get('login/{provider}/callback', [AuthController::class, 'handleproviderCallback']);
+*/
 
-// OAuth Route
-// This Route Redirect To Provider
-Route::get('login/{provider}', [OAuthAuthenticationController::class, 'redirectToProvider'])->name('provider.login');
-// Response To Request From Google
-Route::get('login/{provider}/callback', [OAuthAuthenticationController::class, 'handleproviderCallback']);
+
+// OTP Authentication
+Route::any('login', [AuthController::class, 'login'])->name('login');
 
 
 
