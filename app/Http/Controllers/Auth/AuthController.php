@@ -52,5 +52,9 @@ class AuthController extends Controller
         if ($request->method() == 'GET') {
             return view('auth.otp.login');
         }
+
+        $request->validate([
+            'cellphone' => 'required|iran_mobile',
+        ]);
     }
 }

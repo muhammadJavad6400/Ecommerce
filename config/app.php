@@ -170,6 +170,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
         App\Providers\FortifyServiceProvider::class,
+        Anetwork\Validation\PersianValidationServiceProvider::class
     ])->toArray(),
 
     /*

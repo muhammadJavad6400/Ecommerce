@@ -230,5 +230,6 @@ return [
         'bannerImage'             => 'تصویر بنر',
         'priority'                 => 'اولویت بنر',
         'type'                     => 'نوع بنر',
+        'cellphone'                => 'شماره تلفن همراه'
     ],
 ];
