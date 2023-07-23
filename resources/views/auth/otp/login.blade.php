@@ -35,6 +35,7 @@
                             <div id="lg1" class="tab-pane active">
                                 <div class="login-form-container">
                                     <div class="login-register-form">
+
                                         <form id="loginForm">
                                             <input id="cellphoneInput" placeholder="شماره تلفن همراه" type="text">
 
@@ -43,9 +44,22 @@
                                             </div>
 
                                             <div class="button-box d-flex justify-content-center">
+                                                <button type="submit">ارسال</button>
+                                            </div>
+                                        </form>
+
+                                        <form id="checkOTPForm">
+                                            <input id="checkOTPInput" placeholder="رمز یکبار مصرف" type="text">
+
+                                            <div id="checkOTPInputError" class="input-error-validation">
+                                                <strong id="checkOTPInputErrorText"></strong>
+                                            </div>
+
+                                            <div class="button-box d-flex justify-content-center">
                                                 <button type="submit">ورود</button>
                                             </div>
                                         </form>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -60,17 +74,33 @@
 
 @section('script')
     <script>
+        let loginToken;
+        $('#checkOTPForm').hide();
+
+
+
         $('#loginForm').submit(function(event) {
             console.log($('#cellphoneInput').val())
             event.preventDefault();
 
-            $.post("{{ url('/login') }}",
-            {
+            $.post("{{ url('/login') }}", {
                 '_token': "{{ csrf_token() }}",
                 'cellphone': $('#cellphoneInput').val()
 
-            } , function(response , status){
-                console.log(response , status);
+            }, function(response, status) {
+                console.log(response, status);
+                loginToken = response.login_token
+
+                swal({
+                    icon: 'success',
+                    text: 'رمز یکبار مصرف برای شما ارسال شد',
+                    button: 'حله!',
+                    timer: 3000
+                });
+
+                $('#loginForm').fadeOut();
+                $('#checkOTPForm').fadeIn();
+
 
             }).fail(function(response) {
                 console.log(response.responseJSON)
