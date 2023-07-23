@@ -55,8 +55,12 @@
                                                 <strong id="checkOTPInputErrorText"></strong>
                                             </div>
 
-                                            <div class="button-box d-flex justify-content-center">
+                                            <div class="button-box d-flex justify-content-between">
                                                 <button type="submit">ورود</button>
+                                                <div>
+                                                    <button id="resendOTPButton" type="submit">ارسال مجدد</button>
+                                                    <span id="resendOTPTime"></span>
+                                                </div>
                                             </div>
                                         </form>
 
@@ -76,6 +80,7 @@
     <script>
         let loginToken;
         $('#checkOTPForm').hide();
+        $('#resendOTPButton').hide();
 
 
         $('#loginForm').submit(function(event) {
@@ -99,6 +104,7 @@
 
                 $('#loginForm').fadeOut();
                 $('#checkOTPForm').fadeIn();
+                timer();
 
 
             }).fail(function(response) {
@@ -116,7 +122,7 @@
 
                 '_token': "{{ csrf_token() }}",
                 'otp': $('#checkOTPInput').val(),
-                'login_token' : loginToken
+                'login_token': loginToken
 
             }, function(response, status) {
                 console.log(response, status);
@@ -131,5 +137,59 @@
                 $('#checkOTPInputErrorText').html(response.responseJSON.errors.otp[0])
             });
         });
+
+        $('#resendOTPButton').click(function(event) {
+            event.preventDefault();
+
+            $.post("{{ url('/resend-otp') }}", {
+                '_token': "{{ csrf_token() }}",
+                'login_token': loginToken
+
+            }, function(response, status) {
+                console.log(response, status);
+                loginToken = response.login_token;
+
+                swal({
+                    icon: 'success',
+                    text: 'رمز یکبار مصرف برای شما ارسال شد',
+                    button: 'حله!',
+                    timer: 2000
+                });
+
+                $('#resendOTPButton').fadeOut();
+                timer();
+                $('#resendOTPTime').fadeIn();
+
+            }).fail(function(response) {
+                console.log(response.responseJSON);
+                swal({
+                    icon: 'error',
+                    text: 'مشکل در ارسال دوباره رمز یکبار مصرف، مجددا تلاش کنید',
+                    button: 'حله!',
+                    timer: 2000
+                });
+            })
+        });
+
+        function timer() {
+            let time = "1:01";
+            let interval = setInterval(function() {
+                let countdown = time.split(':');
+                let minutes = parseInt(countdown[0], 10);
+                let seconds = parseInt(countdown[1], 10);
+                --seconds;
+                minutes = (seconds < 0) ? --minutes : minutes;
+                if (minutes < 0) {
+                    clearInterval(interval);
+                    $('#resendOTPTime').hide();
+                    $('#resendOTPButton').fadeIn();
+                };
+                seconds = (seconds < 0) ? 59 : seconds;
+                seconds = (seconds < 10) ? '0' + seconds : seconds;
+                //minutes = (minutes < 10) ?  minutes : minutes;
+                $('#resendOTPTime').html(minutes + ':' + seconds);
+                time = minutes + ':' + seconds;
+            }, 1000);
+        }
     </script>
 @endsection

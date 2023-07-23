@@ -72,6 +72,7 @@ Route::get('login/{provider}/callback', [AuthController::class, 'handleproviderC
 // OTP Authentication
 Route::any('login', [AuthController::class, 'login'])->name('login');
 Route::post('check-otp', [AuthController::class, 'checkOtp']);
+Route::post('resend-otp', [AuthController::class, 'resendOtp']);
 
 
 
