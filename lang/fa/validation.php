@@ -227,9 +227,10 @@ return [
         'category_id'              => 'دسته بندی',
         'attribute_ids'            => 'ویژگی ها',
         'variation_values'         => 'ویژگی متغیر',
-        'bannerImage'             => 'تصویر بنر',
+        'bannerImage'              => 'تصویر بنر',
         'priority'                 => 'اولویت بنر',
         'type'                     => 'نوع بنر',
-        'cellphone'                => 'شماره تلفن همراه'
+        'cellphone'                => 'شماره تلفن همراه',
+        'otp'                      => 'کد تایید'
     ],
 ];
