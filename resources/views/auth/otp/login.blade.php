@@ -73,7 +73,7 @@
                 console.log(response , status);
 
             }).fail(function(response) {
-                //console.log(response.responseJSON.errors.cellphone[0])
+                console.log(response.responseJSON)
                 $('#cellphoneInput').addClass('mb-1');
                 $('#cellphoneInputError').fadeIn();
                 $('#cellphoneInputErrorText').html(response.responseJSON.errors.cellphone[0])

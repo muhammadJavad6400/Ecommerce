@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Notifications\OTPSms;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -56,5 +57,31 @@ class AuthController extends Controller
         $request->validate([
             'cellphone' => 'required|iran_mobile',
         ]);
+
+        try {
+            $user = User::where('cellphone', $request->cellphone)->first();
+
+            $OTPCode = mt_rand(100000, 999999);
+            $loginToken = Hash::make("CDATA671#*&&poi74)&%nnJuBOTPcOde");
+            if ($user) {
+                $user->update([
+                    'otp' => $OTPCode,
+                    'login_token' => $loginToken,
+                ]);
+            } else {
+                $user = User::create([
+                    'cellphone' => $request->cellphone,
+                    'otp' => $OTPCode,
+                    'login_token' => $loginToken
+                ]);
+            }
+
+            $user->notify(new OTPSms($OTPCode));
+
+            return response(['login_token' => $loginToken], 200);
+
+        } catch (\Exception $ex) {
+            return response(['errors' => $ex->getMessage()], 422);
+        }
     }
 }
